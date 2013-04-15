@@ -1,0 +1,21 @@
+#summary One-sentence summary of this page.
+#labels Featured
+
+= Introduction =
+
+Meaning of abbreviation in Czech language:
+Evidence skladových zásob restaurace
+
+Description in Czech language:
+Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, příjem, výdej, automatické odečítání zásob podle zadaných receptů, návrh receptů podle dostupných zásob.
+
+Project Members:
+Filip Bogyai, učo 395959, Filip.Bogyai@gmail.com (owner, developer, wiki contributor)
+Lukáš Gašpárek, učo 396194, SatoshiGray.sama@gmail.com (owner, developer, creator, wiki contributor)
+Lukáš Němec, učo 394036, nemecl@seznam.cz (owner, developer, wiki contributor)
+Adam Studenič, učo 396260, TA (owner, developer, wiki contributor)
+
+
+= Details =
+
+TBD
