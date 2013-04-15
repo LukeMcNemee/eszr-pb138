@@ -13,7 +13,7 @@ Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, p
 <b>Filip Bogyai</b>, učo 395959, Filip.Bogyai@gmail.com (owner, developer, wiki contributor)<br>
 <b>Lukáš Gašpárek</b>, učo 396194, SatoshiGray.sama@gmail.com (owner, developer, creator, wiki contributor)<br>
 <b>Lukáš Němec</b>, učo 394036, nemecl@seznam.cz (owner, developer, wiki contributor)<br>
-<b>Adam Studenič</b>, učo 396260, TA (owner, developer, wiki contributor)
+<b>Adam Studenič</b>, učo 396260, a.studenic@gmail.com (owner, developer, wiki contributor)
 
 
 = Details =
