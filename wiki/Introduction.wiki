@@ -3,17 +3,17 @@
 
 = Introduction =
 
-Meaning of abbreviation in Czech language:<br>
-Evidence skladových zásob restaurace
+<h3><u>Meaning of abbreviation in Czech language:</u></h3><br>
+<b>Evidence skladových zásob restaurace</b>
 
-Description in Czech language:<br>
+<h3><u>Description in Czech language:</u></h3><br>
 Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, příjem, výdej, automatické odečítání zásob podle zadaných receptů, návrh receptů podle dostupných zásob.
 
-Project Members:
-Filip Bogyai, učo 395959, Filip.Bogyai@gmail.com (owner, developer, wiki contributor)<br>
-Lukáš Gašpárek, učo 396194, SatoshiGray.sama@gmail.com (owner, developer, creator, wiki contributor)<br>
-Lukáš Němec, učo 394036, nemecl@seznam.cz (owner, developer, wiki contributor)<br>
-Adam Studenič, učo 396260, TA (owner, developer, wiki contributor)
+<h3><u>Project Members:</u></h3>
+<b>Filip Bogyai</b>, učo 395959, Filip.Bogyai@gmail.com (owner, developer, wiki contributor)<br>
+<b>Lukáš Gašpárek</b>, učo 396194, SatoshiGray.sama@gmail.com (owner, developer, creator, wiki contributor)<br>
+<b>Lukáš Němec</b>, učo 394036, nemecl@seznam.cz (owner, developer, wiki contributor)<br>
+<b>Adam Studenič</b>, učo 396260, TA (owner, developer, wiki contributor)
 
 
 = Details =
