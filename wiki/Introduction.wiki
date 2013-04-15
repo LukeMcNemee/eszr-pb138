@@ -4,7 +4,7 @@
 = Introduction =
 
 <h3><u>Meaning of abbreviation in Czech language:</u></h3><br>
-<b>Evidence skladových zásob restaurace</b>
+Evidence skladových zásob restaurace
 
 <h3><u>Description in Czech language:</u></h3><br>
 Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, příjem, výdej, automatické odečítání zásob podle zadaných receptů, návrh receptů podle dostupných zásob.
