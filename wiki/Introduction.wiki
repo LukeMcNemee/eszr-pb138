@@ -18,4 +18,5 @@ Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, p
 
 = Details =
 
-TBD
+Pre-release GUI model:
+<img src="http://imageshack.us/a/img248/9852/guioc.png" />
