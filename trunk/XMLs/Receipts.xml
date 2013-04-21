@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<receipts>
+  <receipt>
+    <name>Asijské kuře</name>
+    <parts>
+      <part>
+        <ingredient>Kuřecí prsa</ingredient>
+        <unit>g</unit>
+        <amount>500</amount>
+      </part>
+      <part>
+        <ingredient>Solamyl</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Sůl</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Kari</ingredient>
+        <unit>lžička</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Pomerančová šťáva</ingredient>
+        <unit>ml</unit>
+        <amount>30</amount>
+      </part>
+      <part>
+        <ingredient>Citrónová šťáva</ingredient>
+        <unit>ml</unit>
+        <amount>10</amount>
+      </part>
+      <part>
+        <ingredient>Sójová omáčka</ingredient>
+        <unit>ml</unit>
+        <amount>10</amount>
+      </part>
+      <part>
+        <ingredient>Česnek</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Zázvor</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Cukr</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Jarní cibulka</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+    </parts>
+  </receipt>
+
+  <receipt>
+    <name>Játrové řízečky</name>
+    <parts>
+      <part>
+        <ingredient>Játrový salám</ingredient>
+        <unit>g</unit>
+        <amount>300</amount>
+      </part>
+      <part>
+        <ingredient>Mleté ořechy</ingredient>
+        <unit>g</unit>
+        <amount>120</amount>
+      </part>
+      <part>
+        <ingredient>Strouhanka</ingredient>
+        <unit>g</unit>
+        <amount>80</amount>
+      </part>
+      <part>
+        <ingredient>Mletá paprika</ingredient>
+        <unit>lžička</unit>
+        <amount>0.5</amount>
+      </part>
+      <part>
+        <ingredient>Sůl</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Vejce</ingredient>
+        <unit>ks</unit>
+        <amount>2</amount>
+      </part>
+      <part>
+        <ingredient>Olej</ingredient>
+        <unit>ml</unit>
+        <amount>100</amount>
+      </part>
+    </parts>
+  </receipt>
+
+  <receipt>
+    <name>"Low Temperature" Roastbeef</name>
+    <parts>
+      <part>
+        <ingredient>Hovězí roštěná</ingredient>
+        <unit>g</unit>
+        <amount>750</amount>
+      </part>
+      <part>
+        <ingredient>Máslo</ingredient>
+        <unit>g</unit>
+        <amount>100</amount>
+      </part>
+      <part>
+        <ingredient>Sůl</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Pepř</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Dijonská hořčice</ingredient>
+        <unit>lžička</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Tymián</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+    </parts>
+  </receipt>
+
+  <receipt>
+    <name>Africké kari</name>
+    <parts>
+      <part>
+        <ingredient>Kuře</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Olivový olej</ingredient>
+        <unit>ml</unit>
+        <amount>100</amount>
+      </part>
+      <part>
+        <ingredient>Cibule</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Česnek</ingredient>
+        <unit>ks</unit>
+        <amount>2</amount>
+      </part>
+      <part>
+        <ingredient>Bobkový list</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Rajčata oloupaná</ingredient>
+        <unit>plechovka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Kari</ingredient>
+        <unit>lžička</unit>
+        <amount>2</amount>
+      </part>
+      <part>
+        <ingredient>Kokosové mléko</ingredient>
+        <unit>plechovka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Citron</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+    </parts>
+  </receipt>
+
+  <receipt>
+    <name>Ajťácké Chilli con carne</name>
+    <parts>
+      <part>
+        <ingredient>Červené fazole</ingredient>
+        <unit>g</unit>
+        <amount>200</amount>
+      </part>
+      <part>
+        <ingredient>Kukuřice</ingredient>
+        <unit>g</unit>
+        <amount>100</amount>
+      </part>
+      <part>
+        <ingredient>Hovězí maso</ingredient>
+        <unit>g</unit>
+        <amount>450</amount>
+      </part>
+      <part>
+        <ingredient>Rajčata</ingredient>
+        <unit>ks</unit>
+        <amount>3</amount>
+      </part>
+      <part>
+        <ingredient>Cibule</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Česnek</ingredient>
+        <unit>ks</unit>
+        <amount>4</amount>
+      </part>
+      <part>
+        <ingredient>Chilli papričky</ingredient>
+        <unit>ks</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Vývar</ingredient>
+        <unit>ml</unit>
+        <amount>200</amount>
+      </part>
+      <part>
+        <ingredient>Polohrubá mouka</ingredient>
+        <unit>g</unit>
+        <amount>400</amount>
+      </part>
+      <part>
+        <ingredient>Olej</ingredient>
+        <unit>ml</unit>
+        <amount>100</amount>
+      </part>
+      <part>
+        <ingredient>Sůl</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Pepř</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+      <part>
+        <ingredient>Tymián</ingredient>
+        <unit>špetka</unit>
+        <amount>1</amount>
+      </part>
+    </parts>
+  </receipt>
+</receipts>
