@@ -21,18 +21,18 @@ public interface IngredientDAO {
     void create(Ingredient Ingredient);
     
     /**
-     * Returns Ingredient with given id.
+     * Returns list of Ingredients with given name
      * 
-     * @param id primary key of requested Ingredient.
-     * @return Ingredient with given id or null if such Ingredient doesn't exist.
+     * @param name name of requested Ingredients
+     * @return all Ingredients with given name or empty list if there are none.
      * @throws DataAccessException in case of error.
      */
-    Ingredient get(Long id);
+    Ingredient findIngredientsByName(String name);
     
     /**
      * Updates existing Ingredient.
      * 
-     * @param Ingredient Ingredient to update (specified by id) with new attributes.
+     * @param Ingredient Ingredient to update (specified by name) with new attributes.
      * @throws DataAccessException in case of error.
      */
     void update(Ingredient Ingredient);
@@ -40,7 +40,7 @@ public interface IngredientDAO {
     /**
      * Removes existing Ingredient.
      * 
-     * @param Ingredient Ingredient to remove (specified by id).
+     * @param Ingredient Ingredient to remove (specified by name).
      * @throws DataAccessException in case of error.
      */
     void delete(Ingredient Ingredient);
@@ -51,15 +51,7 @@ public interface IngredientDAO {
      * @return all Ingredients in the DB or empty list if there are none.
      * @throws DataAccessException in case of error.
      */
-    List<Ingredient> findAll();
+    List<Ingredient> findAll();    
     
-    /**
-     * Returns list of Ingredients with given name
-     * 
-     * @param name name of requested Ingredients
-     * @return all Ingredients with given name or empty list if there are none.
-     * @throws DataAccessException in case of error.
-     */
-    List<Ingredient> findIngredientsByName(String name);
 }
 

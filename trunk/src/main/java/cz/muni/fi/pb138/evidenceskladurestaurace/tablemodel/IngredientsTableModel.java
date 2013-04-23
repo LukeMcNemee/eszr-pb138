@@ -26,20 +26,18 @@ public class IngredientsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 3;
     }
     //ID fname lname address city country tel. mail
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return "ID";
-            case 1:
                 return "Name";
-            case 2:
+            case 1:
                 return "Unit";
-            case 3:
-                return "Amount";           
+            case 2:
+                return "Amount";                    
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -49,12 +47,10 @@ public class IngredientsTableModel extends AbstractTableModel {
         Ingredient ingredient = ingredients.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return ingredient.getId();
-            case 1:
                 return ingredient.getName();
-            case 2:
+            case 1:
                 return ingredient.getUnit();
-            case 3:
+            case 2:
                 return ingredient.getAmount();            
             default:
                 throw new IllegalArgumentException("columnIndex");

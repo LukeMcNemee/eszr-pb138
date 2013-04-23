@@ -16,7 +16,7 @@ public class IngredientDAOImpl implements IngredientDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Ingredient get(Long id) {
+    public Ingredient findIngredientsByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -31,9 +31,6 @@ public class IngredientDAOImpl implements IngredientDAO {
     public List<Ingredient> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public List<Ingredient> findIngredientsByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     
 }
