@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<receipt>
-  <name></name>
-  <parts>
-    <part>
-      <ingredient>Sůl</ingredient>
-      <unit></unit>
-      <amount>1</amount>
-    </part>
-  </parts>
-</receipt>
+<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="Receipts_schema.xsd">
+  <receipt>
+    <name>name</name>
+    <parts>
+      <part>
+        <ingredient>Sůl</ingredient>
+        <unit/>
+        <amount>1</amount>
+      </part>
+    </parts>
+  </receipt>
+</receipts>
