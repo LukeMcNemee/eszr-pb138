@@ -14,7 +14,7 @@
                 <xs:element name="products">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="product">
+                            <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
                                 <xs:complexType>
                                     <xs:all>
                                         <xs:element name="ingredient">
