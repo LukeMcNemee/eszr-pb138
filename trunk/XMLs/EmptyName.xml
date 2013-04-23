@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<receipt>
+<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Receipts_schema.xsd">
+  <receipt>
+    
   <name></name>
   <parts>
     <part>
@@ -9,4 +12,5 @@
       <amount>1</amount>
     </part>
   </parts>
-</receipt>
+  </receipt>
+</receipts>
