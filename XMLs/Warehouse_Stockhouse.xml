@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<warehouse>
+  <name>Stockhouse</name>
+  <product>
+    <ingredient></ingredient>
+    <unit></unit>
+    <amount></amount>
+  </product>
+</warehouse>
