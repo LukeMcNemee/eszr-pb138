@@ -7,14 +7,26 @@
                 <xs:element name="receipt" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:all>
-                            <xs:element name="name" type="xs:string"/>
+                            <xs:element name="name">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
                             <xs:element name="parts">
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="part" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:all>
-                                                  <xs:element name="ingredient" type="xs:string"/>
+                                                  <xs:element name="ingredient">
+                                                  <xs:simpleType>
+                                                  <xs:restriction base="xs:string">
+                                                  <xs:minLength value="1"/>
+                                                  </xs:restriction>
+                                                  </xs:simpleType>
+                                                  </xs:element>
                                                   <xs:element name="unit">
                                                   <xs:simpleType>
                                                   <xs:restriction base="xs:string">

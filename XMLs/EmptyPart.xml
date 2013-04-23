@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="Receipts_schema.xsd">
+  xsi:noNamespaceSchemaLocation="Receipts_schema.xsd">
   <receipt>
     <name>name</name>
     <parts>
-      <part>
-      </part>
+      <part> </part>
     </parts>
-  </receipt>  
+  </receipt>
 </receipts>

@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<warehouse>
+<warehouse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Warehouse_schema.xsd">
   <name>Stockhouse</name>
-  <product>
-    <ingredient></ingredient>
-    <unit></unit>
-    <amount></amount>
-  </product>
+  <products>
+    <product>
+      <ingredient>sůl</ingredient>
+      <unit>kg</unit>
+      <amount>10</amount>
+    </product>
+  </products>
 </warehouse>
