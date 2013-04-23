@@ -13,8 +13,6 @@ import java.util.Objects;
  */
 public class Recipe {
     
-    private Long id;
-    
     private String name;
     
     private List<Ingredient> ingredients;
@@ -26,15 +24,7 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -54,7 +44,7 @@ public class Recipe {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (name != null ? name.hashCode() : 0);
         return hash;
     }
 
@@ -64,7 +54,7 @@ public class Recipe {
             return false;
         }
         Recipe other = (Recipe) object;
-        if (this.id != null && !Objects.equals(this.id, other.id)) {
+        if (this.name != null && !Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;

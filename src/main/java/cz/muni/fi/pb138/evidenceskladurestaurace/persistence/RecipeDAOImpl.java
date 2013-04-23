@@ -16,7 +16,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Recipe get(Long id) {
+    public Recipe findRecipesByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -31,9 +31,6 @@ public class RecipeDAOImpl implements RecipeDAO {
     public List<Recipe> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public List<Recipe> findRecipesByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

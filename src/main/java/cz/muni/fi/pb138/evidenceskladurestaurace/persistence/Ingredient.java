@@ -11,9 +11,7 @@ import java.util.Objects;
  * @author Filip Bogyai
  */
 public class Ingredient {
-    
-    private Long id;
-    
+        
     private String name;
     
     private Unit unit;
@@ -27,15 +25,7 @@ public class Ingredient {
         this.name = name;
         this.unit = unit;
         this.amount = amount;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
+    }    
     
     public String getName() {
         return name;
@@ -64,7 +54,7 @@ public class Ingredient {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (name != null ? name.hashCode() : 0);
         return hash;
     }
 
@@ -74,7 +64,7 @@ public class Ingredient {
             return false;
         }
         Ingredient other = (Ingredient) obj;
-        if (this.id != null && !Objects.equals(this.id, other.id)) {
+        if (this.name != null && !Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
@@ -82,7 +72,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{ id=" + id + "name=" + name + ", unit=" + unit + ", amount=" + amount + '}';
+        return "Ingredient{name=" + name + ", unit=" + unit + ", amount=" + amount + '}';
     }
 
        

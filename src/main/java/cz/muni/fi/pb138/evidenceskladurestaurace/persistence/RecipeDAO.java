@@ -21,18 +21,18 @@ public interface RecipeDAO {
     void create(Recipe recipe);
     
     /**
-     * Returns recipe with given id.
+     * Returns list of recipes with given name
      * 
-     * @param id primary key of requested recipe.
-     * @return recipe with given id or null if such recipe doesn't exist.
+     * @param name name of requested recipes
+     * @return all recipes with given name or empty list if there are none.
      * @throws DataAccessException in case of error.
      */
-    Recipe get(Long id);
+    Recipe findRecipesByName(String name);
     
     /**
      * Updates existing recipe.
      * 
-     * @param recipe recipe to update (specified by id) with new attributes.
+     * @param recipe recipe to update (specified by name) with new attributes.
      * @throws DataAccessException in case of error.
      */
     void update(Recipe recipe);
@@ -40,7 +40,7 @@ public interface RecipeDAO {
     /**
      * Removes existing recipe.
      * 
-     * @param recipe recipe to remove (specified by id).
+     * @param recipe recipe to remove (specified by name).
      * @throws DataAccessException in case of error.
      */
     void delete(Recipe recipe);
@@ -52,15 +52,7 @@ public interface RecipeDAO {
      * @throws DataAccessException in case of error.
      */
     List<Recipe> findAll();
-    
-    /**
-     * Returns list of recipes with given name
-     * 
-     * @param name name of requested recipes
-     * @return all recipes with given name or empty list if there are none.
-     * @throws DataAccessException in case of error.
-     */
-    List<Recipe> findRecipesByName(String name);
+        
 }
 
 
