@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<warehouse xsi:noNamespaceSchemaLocation="Warehouse_schema.xsd">
+  <name>Bordel</name>
+  <products>
+    <product>
+      <ingredient>sůl</ingredient>
+      <unit>ml</unit>
+      <amount>1000</amount>
+    </product>
+  </products>
+</warehouse>
