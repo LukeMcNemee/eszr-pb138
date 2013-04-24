@@ -47,9 +47,7 @@
                                                   </xs:element>
                                                   <xs:element name="amount">
                                                   <xs:simpleType>
-                                                  <xs:restriction base="xs:double">
-                                                  <xs:minInclusive value="0"/>
-                                                  </xs:restriction>
+                                                  <xs:restriction base="xs:positiveInteger"/>                                                  
                                                   </xs:simpleType>
                                                   </xs:element>
                                                 </xs:all>

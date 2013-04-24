@@ -30,48 +30,48 @@
                 <amount><xsl:value-of select="amount"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'lžička' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount div 202"/></amount>
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount * 5"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'g' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount div 1000"/></amount>                
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount"/></amount>                
             </xsl:if>
             <xsl:if test="unit/text() = 'kg' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount"/></amount>
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount * 1000"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'špetka' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount div 2000"/></amount>
-            </xsl:if>
-            <xsl:if test="unit/text() = 'l' ">
-                <unit>l</unit>
+                <unit>g</unit>
                 <amount><xsl:value-of select="amount"/></amount>
             </xsl:if>
+            <xsl:if test="unit/text() = 'l' ">
+                <unit>ml</unit>
+                <amount><xsl:value-of select="amount * 1000"/></amount>
+            </xsl:if>
             <xsl:if test="unit/text() = 'ml' ">
-                <unit>l</unit>
-                <amount><xsl:value-of select="amount div 1000"/></amount>
+                <unit>ml</unit>
+                <amount><xsl:value-of select="amount"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'dkg' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount div 100"/></amount>
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount * 10"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'lžíce' ">
-                <unit>kg</unit>
-                <amount><xsl:value-of select="amount div 100"/></amount>
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount * 15"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'hrnek' ">
-                <unit>l</unit>
-                <amount><xsl:value-of select="amount div 8"/></amount>
+                <unit>ml</unit>
+                <amount><xsl:value-of select="amount * 230"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'plechovka' ">
-                <unit>l</unit>
-                <amount><xsl:value-of select="amount div 2.5"/></amount>
+                <unit>g</unit>
+                <amount><xsl:value-of select="amount * 400"/></amount>
             </xsl:if>
             <xsl:if test="unit/text() = 'cl' ">
-                <unit>l</unit>
-                <amount><xsl:value-of select="amount div 100"/></amount>
+                <unit>ml</unit>
+                <amount><xsl:value-of select="amount * 10"/></amount>
             </xsl:if>
         </part>        
     </xsl:template>
