@@ -31,25 +31,14 @@
                                                   <xs:simpleType>
                                                   <xs:restriction base="xs:string">
                                                   <xs:enumeration value="ks"/>
-                                                  <xs:enumeration value="lžička"/>
                                                   <xs:enumeration value="g"/>
-                                                  <xs:enumeration value="kg"/>
-                                                  <xs:enumeration value="špetka"/>
-                                                  <xs:enumeration value="l"/>
                                                   <xs:enumeration value="ml"/>
-                                                  <xs:enumeration value="dkg"/>
-                                                  <xs:enumeration value="lžíce"/>
-                                                  <xs:enumeration value="hrnek"/>
-                                                  <xs:enumeration value="plechovka"/>
-                                                  <xs:enumeration value="cl"/>
                                                   </xs:restriction>
                                                   </xs:simpleType>
                                                   </xs:element>
                                                   <xs:element name="amount">
                                                   <xs:simpleType>
-                                                  <xs:restriction base="xs:double">
-                                                  <xs:minInclusive value="0"/>
-                                                  </xs:restriction>
+                                                  <xs:restriction base="xs:positiveInteger"/>                                                  
                                                   </xs:simpleType>
                                                   </xs:element>
                                                 </xs:all>

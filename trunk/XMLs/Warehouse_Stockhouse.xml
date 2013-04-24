@@ -6,8 +6,8 @@
   <products>
     <product>
       <ingredient>sůl</ingredient>
-      <unit>kg</unit>
-      <amount>10</amount>
+      <unit>g</unit>
+      <amount>1000</amount>
     </product>
   </products>
 </warehouse>
