@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<warehouse xsi:noNamespaceSchemaLocation="Warehouse_schema.xsd">
+  <name>Craphouse</name>
+  <products>
+    <product>
+      <ingredient>sůl</ingredient>
+      <unit>g</unit>
+      <amount></amount>
+    </product>
+  </products>
+</warehouse>
