@@ -10,13 +10,15 @@ Evidence skladových zásob restaurace
 Desktopová aplikace pro evidenci skladových zásob restaurace - stav zásob, příjem, výdej, automatické odečítání zásob podle zadaných receptů, návrh receptů podle dostupných zásob.
 
 <h3><u>Project Members:</u></h3>
-<b>Filip Bogyai</b>, učo 395959, Filip.Bogyai@gmail.com (owner, developer)<br>
-<b>Lukáš Gašpárek</b>, učo 396194, SatoshiGray.sama@gmail.com (owner, creator, wiki contributor, XML writer)<br>
-<b>Lukáš Němec</b>, učo 394036, nemecl@seznam.cz (owner, developer, XML Schema writer)<br>
-<b>Adam Studenič</b>, učo 396260, a.studenic@gmail.com (owner, developer)
+Filip Bogyai<br>
+Lukáš Gašpárek<br>
+Lukáš Němec<br>
+Adam Studenič
 
 
-= Details =
+= Contents =
 
-Pre-release GUI model:<br>
-<img src="http://imageshack.us/a/img248/9852/guioc.png" />
+<ul>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Members?ts=1367424932&updated=Project_Members" >Project Members Detailed Wiki Page</a></li>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description?ts=1367425132&updated=Project_Description" >Application Description Wiki Page</a></li>
+</ul>
