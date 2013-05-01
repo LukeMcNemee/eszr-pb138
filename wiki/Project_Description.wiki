@@ -4,6 +4,10 @@
 
 http://imageshack.us/a/img19/779/20130501181316.png
 
+= Use Case Diagram =
+
+http://img189.imageshack.us/img189/5509/diagramppaduit1.jpg
+
 = Description =
 
 This application allows users to view and add recipes. Also allows informs them about stocks in their warehouse. Everything is in intuitive and user-friendly interface.
