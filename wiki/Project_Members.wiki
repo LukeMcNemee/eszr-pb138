@@ -1,4 +1,7 @@
-<b>Filip Bogyai</b>, učo 395959, Filip.Bogyai@gmail.com (owner, developer)<br>
-<b>Lukáš Gašpárek</b>, učo 396194, SatoshiGray.sama@gmail.com (owner, creator, wiki contributor, XML writer)<br>
-<b>Lukáš Němec</b>, učo 394036, nemecl@seznam.cz (owner, developer, XML Schema writer)<br>
-<b>Adam Studenič</b>, učo 396260, a.studenic@gmail.com (owner, developer)
+#summary Few information about project members and their functions in this project.
+
+|| *Name* || *MUNI Učo* || *E-Mail* || *Google Code Privilege* || *Project Function* || *MUNI profile*||
+|| _Filip Bogyai_ || 395959 || Filip.Bogyai@gmail.com || Owner || Application developer, GUI maker || <a href ="https://is.muni.cz/auth/osoba/395959" >Profile</a> ||
+|| _Lukáš Gašpárek_ || 396194 || SatoshiGray.sama@gmail.com || Owner (Google Project Creator) || Wiki contributor, XML Writer, GUI advisor|| <a href ="https://is.muni.cz/auth/osoba/396194" >Profile</a>  ||
+|| _Lukáš Němec_ || 394036 || nemecl@seznam.cz || Owner || XML Schema & XML Transformation writer || <a href ="https://is.muni.cz/auth/osoba/394036" >Profile</a> ||
+|| _Adam Studenič_ || 396260 || a.studenic@gmail.com || Owner || Application developer|| <a href ="https://is.muni.cz/auth/osoba/396260" >Profile</a>  ||
