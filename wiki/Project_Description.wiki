@@ -1,13 +1,25 @@
-#summary One-sentence summary of this page.
+#summary Explanation of application.
 
-= Introduction =
+= GUI =
 
-Add your content here.
+http://imageshack.us/a/img19/779/20130501181316.png
 
+= Description =
 
-= Details =
+This application allows users to view and add recipes. Also allows informs them about stocks in their warehouse. Everything is in intuitive and user-friendly interface.
+By clicking on desired recipe, user can validate whether the recipe can be cooked with ingredients present in the warehouse.
+User also has the possibility to increase the amount of portions. Application can warn user if the amount of ingredients left in the warehouse is not enough for cooking the desired amount of portions.
+Adding the recipes can be done either by application or by importing a <a href="https://code.google.com/p/eszr-pb138/wiki/XMLRecipeData">XML file</a>.
+Similar way of adding ingredients is also warehouse ingredient addition.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= Language used =
+
+http://royalwise.com/rw/wp-content/uploads/2013/01/java-logo.jpg
+
+= Compatibility =
+
+<ul>
+<li>Windows</li>
+<li>Unix</li>
+<li>Mac OS</li>
+</ul>
