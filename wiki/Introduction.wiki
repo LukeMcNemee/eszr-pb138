@@ -1,4 +1,4 @@
-#summary Introduction of the project.
+#summary Introduction and contents of the project.
 #labels Featured
 
 = Introduction =
@@ -19,6 +19,6 @@ Adam Studenič
 = Contents =
 _Where to go next._
 <ul>
-<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Members?ts=1367424932&updated=Project_Members" >Project Members Detailed Wiki Page</a></li>
-<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description?ts=1367425132&updated=Project_Description" >Application Description Wiki Page</a></li>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Members?ts=1367424932" >Project Members Detailed Wiki Page</a></li>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description?ts=1367425132" >Application Description Wiki Page</a></li>
 </ul>
