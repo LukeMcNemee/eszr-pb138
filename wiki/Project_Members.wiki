@@ -1,0 +1,4 @@
+<b>Filip Bogyai</b>, učo 395959, Filip.Bogyai@gmail.com (owner, developer)<br>
+<b>Lukáš Gašpárek</b>, učo 396194, SatoshiGray.sama@gmail.com (owner, creator, wiki contributor, XML writer)<br>
+<b>Lukáš Němec</b>, učo 394036, nemecl@seznam.cz (owner, developer, XML Schema writer)<br>
+<b>Adam Studenič</b>, učo 396260, a.studenic@gmail.com (owner, developer)
