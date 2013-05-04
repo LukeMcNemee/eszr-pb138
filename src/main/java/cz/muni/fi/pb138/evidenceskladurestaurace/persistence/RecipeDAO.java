@@ -5,6 +5,7 @@
 package cz.muni.fi.pb138.evidenceskladurestaurace.persistence;
 
 import java.util.List;
+import org.w3c.dom.Document;
 
 /**
  *
@@ -52,7 +53,10 @@ public interface RecipeDAO {
      * @throws DataAccessException in case of error.
      */
     List<Recipe> findAll();
-        
+    
+    Document getDoc();
+    
+    void setDoc(Document doc);          
 }
 
 

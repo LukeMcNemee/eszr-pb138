@@ -5,7 +5,6 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import sun.awt.UngrabEvent;
 
 /**
  *
@@ -14,6 +13,16 @@ import sun.awt.UngrabEvent;
 public class IngredientDAOImpl implements IngredientDAO {
 
     private Document doc;
+   
+    @Override
+    public Document getDoc() {
+        return doc;
+    }
+        
+    @Override
+    public void setDoc(Document doc) {
+        this.doc = doc;
+    }
 
     @Override
     public void create(Ingredient ingredient) {

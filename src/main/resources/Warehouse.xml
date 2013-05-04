@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<warehouse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Warehouse_schema.xsd">
+  <name>Stockhouse</name>
+  <products>
+    <product>
+      <ingredient>Bobkový list</ingredient>
+      <unit>ks</unit>
+      <amount>27</amount>
+    </product>
+    <product>
+      <ingredient>Cibule</ingredient>
+      <unit>ks</unit>
+      <amount>50</amount>
+    </product>
+    <product>
+      <ingredient>Citron</ingredient>
+      <unit>ks</unit>
+      <amount>36</amount>
+    </product>
+    <product>
+      <ingredient>Citrónová šťáva</ingredient>
+      <unit>ml</unit>
+      <amount>25000</amount>
+    </product>
+    <product>
+      <ingredient>Cukr</ingredient>
+      <unit>g</unit>
+      <amount>37000</amount>
+    </product>
+    <product>
+      <ingredient>Červené fazole</ingredient>
+      <unit>g</unit>
+      <amount>5200</amount>
+    </product>
+    <product>
+      <ingredient>Česnek</ingredient>
+      <unit>ks</unit>
+      <amount>30</amount>
+    </product>
+    <product>
+            <ingredient>Chilli papričky</ingredient>
+            <unit>ks</unit>
+            <amount>10</amount>
+    </product>
+    <product>
+      <ingredient>Dijonská hořčice</ingredient>
+      <unit>g</unit>
+      <amount>5000</amount>
+    </product>
+    <product>
+      <ingredient>Hovězí maso</ingredient>
+      <unit>g</unit>
+      <amount>6000</amount>
+    </product>
+    <product>
+      <ingredient>Hovězí roštěná</ingredient>
+      <unit>g</unit>
+      <amount>8900</amount>
+    </product>
+    <product>
+      <ingredient>Játrový salám</ingredient>
+      <unit>g</unit>
+      <amount>6700</amount>
+    </product>
+    <product>
+      <ingredient>Jarní cibulka</ingredient>
+      <unit>ks</unit>
+      <amount>39</amount>
+    </product>
+      <product>
+        <ingredient>Kari</ingredient>
+        <unit>g</unit>
+        <amount>10000</amount>
+      </product>
+    <product>
+      <ingredient>Kokosové mléko</ingredient>
+      <unit>ml</unit>
+      <amount>15000</amount>
+    </product>
+    <product>
+      <ingredient>Kukuřice</ingredient>
+      <unit>g</unit>
+      <amount>4500</amount>
+    </product>
+      <product>
+        <ingredient>Kuře</ingredient>
+        <unit>g</unit>
+        <amount>10000</amount>
+      </product>
+    <product>
+      <ingredient>Máslo</ingredient>
+      <unit>g</unit>
+      <amount>48000</amount>
+    </product>
+    <product>
+      <ingredient>Mletá paprika</ingredient>
+      <unit>g</unit>
+      <amount>2500</amount>
+    </product>
+    <product>
+      <ingredient>Mleté ořechy</ingredient>
+      <unit>g</unit>
+      <amount>73000</amount>
+    </product>
+    <product>
+      <ingredient>Olej</ingredient>
+      <unit>ml</unit>
+      <amount>19000</amount>
+    </product>
+    <product>
+      <ingredient>Pepř</ingredient>
+      <unit>g</unit>
+      <amount>32000</amount>
+    </product>
+    <product>
+      <ingredient>Polohrubá mouka</ingredient>
+      <unit>g</unit>
+      <amount>9500</amount>
+    </product>
+    <product>
+      <ingredient>Pomerančová šťáva</ingredient>
+      <unit>ml</unit>
+      <amount>30000</amount>
+    </product>
+    <product>
+      <ingredient>Rajčata</ingredient>
+      <unit>ks</unit>
+      <amount>48</amount>
+    </product>
+    <product>
+      <ingredient>Rajčatový protlak</ingredient>
+      <unit>g</unit>
+      <amount>5600</amount>
+    </product>
+    <product>
+      <ingredient>Sójová omáčka</ingredient>
+      <unit>ml</unit>
+      <amount>7000</amount>
+    </product>
+      <product>
+        <ingredient>Solamyl</ingredient>
+        <unit>ks</unit>
+        <amount>50</amount>
+      </product>
+    <product>
+      <ingredient>Strouhanka</ingredient>
+      <unit>g</unit>
+      <amount>6000</amount>
+    </product>
+    <product>
+      <ingredient>Sůl</ingredient>
+      <unit>g</unit>
+      <amount>40000</amount>
+    </product>
+    <product>
+      <ingredient>Tymián</ingredient>
+      <unit>g</unit>
+      <amount>1000</amount>
+    </product>
+    <product>
+      <ingredient>Vejce</ingredient>
+      <unit>ks</unit>
+      <amount>500</amount>
+    </product>
+    <product>
+      <ingredient>Vývar</ingredient>
+      <unit>ml</unit>
+      <amount>28000</amount>
+    </product>
+    <product>
+      <ingredient>Zázvor</ingredient>
+      <unit>ks</unit>
+      <amount>45</amount>
+    </product>
+  </products>
+</warehouse>
