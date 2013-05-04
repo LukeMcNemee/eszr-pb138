@@ -13,7 +13,17 @@ import org.w3c.dom.NodeList;
 public class RecipeDAOImpl implements RecipeDAO {
 
     private Document doc;
+    
+    @Override
+    public Document getDoc() {
+        return doc;
+    }
 
+    @Override
+    public void setDoc(Document doc) {
+        this.doc = doc;
+    }
+    
     @Override
     public void create(Recipe recipe) {
 
@@ -50,7 +60,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         receipts.appendChild(receipt);
 
     }
-
+    
     @Override
     public Recipe findRecipesByName(String name) {
         List<Ingredient> ingredientList = null;

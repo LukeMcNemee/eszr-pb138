@@ -5,6 +5,7 @@
 package cz.muni.fi.pb138.evidenceskladurestaurace.persistence;
 
 import java.util.List;
+import org.w3c.dom.Document;
 
 /**
  *
@@ -51,7 +52,10 @@ public interface IngredientDAO {
      * @return all Ingredients in the DB or empty list if there are none.
      * @throws DataAccessException in case of error.
      */
-    List<Ingredient> findAll();    
+    List<Ingredient> findAll(); 
     
+    Document getDoc();
+    
+    void setDoc(Document doc);   
 }
 

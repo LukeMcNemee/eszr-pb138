@@ -4,19 +4,100 @@
  */
 package cz.muni.fi.pb138.evidenceskladurestaurace;
 
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAOImpl;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
+import cz.muni.fi.pb138.evidenceskladurestaurace.tablemodel.IngredientsTableModel;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 /**
  *
  * @author fbogyai
  */
 public class RestaurantGUI extends javax.swing.JFrame {
+    
+    private static final String INGREDIENTS = "/Warehouse.xml";
+    private static final String RECIPES = "/Receipts.xml";
+    
+    private Document ingredientDB;
+    private Document recipeDB;
+    private RecipeDAO recipeDAO = new RecipeDAOImpl();
+    private IngredientDAO ingredientDAO = new IngredientDAOImpl();
+    private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
+    
 
     /**
      * Creates new form RestaurantGUI
      */
-    public RestaurantGUI() {
+    public RestaurantGUI() {  
+        
+        try{
+            URI ingredients = getClass().getResource(INGREDIENTS).toURI();        
+            URI recipes = getClass().getResource(RECIPES).toURI();
+            
+     //     setDocument(recipes, recipeDB);
+            setDocument(ingredients, ingredientDB);
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        ingredientDAO.setDoc(ingredientDB);
+    //    recipeDAO.setDoc(recipeDB);        
         initComponents();
     }
 
+    private void refreshIngredientsTable(){
+        //pre kotrolny vypis
+        List<Ingredient> temp = ingredientDAO.findAll();
+        for(Ingredient i : temp){
+            System.out.println(i.toString());
+        }
+        
+        ingredientsTableModel.setIngredients(ingredientDAO.findAll());     
+        
+    }
+    
+    private void setDocument(URI uri, Document doc) throws SAXException, ParserConfigurationException,
+            IOException {
+        // Vytvorime instanci tovarni tridy
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        // Pomoci tovarni tridy ziskame instanci DocumentBuilderu
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        // DocumentBuilder pouzijeme pro zpracovani XML dokumentu
+        // a ziskame model dokumentu ve formatu W3C DOM
+        doc = builder.parse(uri.toString());
+    }
+    
+    public void serializetoXML(URI output, Document doc)
+            throws IOException, TransformerConfigurationException, TransformerException {
+        // Vytvorime instanci tovarni tridy
+        TransformerFactory factory = TransformerFactory.newInstance();
+        // Pomoci tovarni tridy ziskame instanci tzv. kopirovaciho transformeru
+        Transformer transformer = factory.newTransformer();
+        // Vstupem transformace bude dokument v pameti
+        DOMSource source = new DOMSource(doc);
+        // Vystupem transformace bude vystupni soubor
+        StreamResult result = new StreamResult(output.toString());
+        // Provedeme transformaci
+        transformer.transform(source, result);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,7 +107,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -39,7 +120,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ingredienceTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -47,6 +129,12 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabbedPaneStateChanged(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -71,6 +159,11 @@ public class RestaurantGUI extends javax.swing.JFrame {
         });
 
         jButton5.setText("Create new Recipe");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
         jSpinner1.setName(""); // NOI18N
@@ -117,9 +210,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Recepts", jPanel1);
+        tabbedPane.addTab("Recepts", jPanel1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ingredienceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -127,7 +220,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ingredienceTable);
+
+        jButton1.setText("Add new Ingredient");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,18 +230,24 @@ public class RestaurantGUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Ingredients", jPanel2);
+        tabbedPane.addTab("Ingredients", jPanel2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -159,7 +260,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             .addGap(0, 497, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Something more..", jPanel3);
+        tabbedPane.addTab("Something more..", jPanel3);
 
         jMenu1.setText("File");
 
@@ -183,13 +284,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,6 +303,21 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
+       if(tabbedPane.getSelectedIndex()==1) {
+           if (!ingredienceTable.getModel().equals(ingredientsTableModel)) {
+               ingredienceTable.setModel(ingredientsTableModel);
+           }             
+           
+           refreshIngredientsTable();
+                
+       }
+    }//GEN-LAST:event_tabbedPaneStateChanged
 
     /**
      * @param args the command line arguments
@@ -234,10 +350,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RestaurantGUI().setVisible(true);
+                
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ingredienceTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -254,8 +373,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
