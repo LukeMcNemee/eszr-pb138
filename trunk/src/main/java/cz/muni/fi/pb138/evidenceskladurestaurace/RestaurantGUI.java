@@ -31,34 +31,38 @@ import org.xml.sax.SAXException;
  * @author fbogyai
  */
 public class RestaurantGUI extends javax.swing.JFrame {
-    
+
     private static final String INGREDIENTS = "/Warehouse.xml";
     private static final String RECIPES = "/Receipts.xml";
-    
+
     private Document ingredientDB;
     private Document recipeDB;
     private RecipeDAO recipeDAO = new RecipeDAOImpl();
     private IngredientDAO ingredientDAO = new IngredientDAOImpl();
     private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
-    
+
 
     /**
      * Creates new form RestaurantGUI
      */
-    public RestaurantGUI() {  
-        
+    public RestaurantGUI() {
+
         try{
-            URI ingredients = getClass().getResource(INGREDIENTS).toURI();        
+            URI ingredients = getClass().getResource(INGREDIENTS).toURI();
             URI recipes = getClass().getResource(RECIPES).toURI();
-            
+
      //     setDocument(recipes, recipeDB);
-            setDocument(ingredients, ingredientDB);
-            
+//            setDocument(ingredients, ingredientDB);
+            ingredientDB = setDocument(ingredients);
+
         }catch(Exception ex){
             ex.printStackTrace();
         }
+        if(ingredientDB == null){
+            System.err.print("ashdsadsad");
+        }
         ingredientDAO.setDoc(ingredientDB);
-    //    recipeDAO.setDoc(recipeDB);        
+    //    recipeDAO.setDoc(recipeDB);
         initComponents();
     }
 
@@ -68,13 +72,14 @@ public class RestaurantGUI extends javax.swing.JFrame {
         for(Ingredient i : temp){
             System.out.println(i.toString());
         }
-        
-        ingredientsTableModel.setIngredients(ingredientDAO.findAll());     
-        
+
+        ingredientsTableModel.setIngredients(ingredientDAO.findAll());
+
     }
-    
-    private void setDocument(URI uri, Document doc) throws SAXException, ParserConfigurationException,
+
+    private Document setDocument(URI uri) throws SAXException, ParserConfigurationException,
             IOException {
+        Document doc;
         // Vytvorime instanci tovarni tridy
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         // Pomoci tovarni tridy ziskame instanci DocumentBuilderu
@@ -82,8 +87,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
         // DocumentBuilder pouzijeme pro zpracovani XML dokumentu
         // a ziskame model dokumentu ve formatu W3C DOM
         doc = builder.parse(uri.toString());
+        return doc;
+
     }
-    
+
     public void serializetoXML(URI output, Document doc)
             throws IOException, TransformerConfigurationException, TransformerException {
         // Vytvorime instanci tovarni tridy
@@ -97,7 +104,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         // Provedeme transformaci
         transformer.transform(source, result);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -312,10 +319,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
        if(tabbedPane.getSelectedIndex()==1) {
            if (!ingredienceTable.getModel().equals(ingredientsTableModel)) {
                ingredienceTable.setModel(ingredientsTableModel);
-           }             
-           
+           }
+
            refreshIngredientsTable();
-                
+
        }
     }//GEN-LAST:event_tabbedPaneStateChanged
 
@@ -326,7 +333,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -350,7 +357,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RestaurantGUI().setVisible(true);
-                
+
             }
         });
     }

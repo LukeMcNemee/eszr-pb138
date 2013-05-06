@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -13,12 +14,12 @@ import org.w3c.dom.NodeList;
 public class IngredientDAOImpl implements IngredientDAO {
 
     private Document doc;
-   
+
     @Override
     public Document getDoc() {
         return doc;
     }
-        
+
     @Override
     public void setDoc(Document doc) {
         this.doc = doc;
@@ -54,38 +55,39 @@ public class IngredientDAOImpl implements IngredientDAO {
 
         Element product = getProductElementByName(name);
         NodeList productItems = product.getChildNodes();
+
         for (int i = 0; i < productItems.getLength(); i++) {
             Element item = null;
+//            if (productItems.item(i).getNodeType() == Node.ELEMENT_NODE) {
             if (productItems.item(i) instanceof Element) {
                 item = (Element) productItems.item(i);
-            }
 
-            if (item.getNodeName().equals("unit")) {
-                String unitName = item.getTextContent();
-                switch (unitName) {
-                    case "g":
-                        unit = Unit.g;
-                        break;
-                    case "kg":
-                        unit = Unit.kg;
-                        break;
-                    case "ml":
-                        unit = Unit.ml;
-                        break;
-                    case "l":
-                        unit = Unit.l;
-                        break;
-                    case "pcs":
-                        unit = Unit.pcs;
-                        break;
-                    default:
-                        unit = Unit.g;
-                        break;
+                if (item.getTagName().equals("unit")) {
+                    String unitName = item.getTextContent();
+                    switch (unitName) {
+                        case "g":
+                            unit = Unit.g;
+                            break;
+                        case "kg":
+                            unit = Unit.kg;
+                            break;
+                        case "ml":
+                            unit = Unit.ml;
+                            break;
+                        case "l":
+                            unit = Unit.l;
+                            break;
+                        case "pcs":
+                            unit = Unit.pcs;
+                            break;
+                        default:
+                            unit = Unit.g;
+                            break;
+                    }
                 }
-            }
-
-            if (item.getNodeName().equals("amount")) {
-                amount = Integer.parseInt(item.getTextContent());
+                if (item.getTagName().equals("amount")) {
+                    amount = Integer.parseInt(item.getTextContent());
+                }
             }
         }
 
@@ -101,12 +103,12 @@ public class IngredientDAOImpl implements IngredientDAO {
 
         for (int i = 0; i < productItems.getLength(); i++) {
             Element item = null;
-            if (productItems.item(i) instanceof Element) {
+            if (productItems.item(i).getNodeType() == Node.ELEMENT_NODE) {
                 item = (Element) productItems.item(i);
-            }
 
-            if (item.getNodeName().equals("amount")) {
-                item.setNodeValue(String.valueOf(ingredient.getAmount())); //should += add or just replace
+                if (item.getNodeName().equals("amount")) {
+                    item.setNodeValue(String.valueOf(ingredient.getAmount())); //should += add or just replace
+                }
             }
         }
         /*
@@ -127,11 +129,13 @@ public class IngredientDAOImpl implements IngredientDAO {
 
         for (int i = 0; i < nameList.getLength(); i++) {
             Element item = null;
+
             if (nameList.item(i) instanceof Element) {
                 item = (Element) nameList.item(i);
+
+                Ingredient ingredient = findIngredientsByName(item.getTextContent());
+                ingredientList.add(ingredient);
             }
-            Ingredient ingredient = findIngredientsByName(item.getTextContent());
-            ingredientList.add(ingredient);
         }
 
         return ingredientList;
@@ -143,6 +147,7 @@ public class IngredientDAOImpl implements IngredientDAO {
         NodeList productList = doc.getElementsByTagName("product");
 
         for (int i = 0; i < productList.getLength(); i++) {
+
             if (productList.item(i) instanceof Element) {
                 NodeList productItems = productList.item(i).getChildNodes();
 
