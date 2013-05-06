@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 public class RecipeDAOImpl implements RecipeDAO {
 
     private Document doc;
-    
+
     @Override
     public Document getDoc() {
         return doc;
@@ -23,7 +23,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     public void setDoc(Document doc) {
         this.doc = doc;
     }
-    
+
     @Override
     public void create(Recipe recipe) {
 
@@ -60,7 +60,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         receipts.appendChild(receipt);
 
     }
-    
+
     @Override
     public Recipe findRecipesByName(String name) {
         List<Ingredient> ingredientList = null;
@@ -82,17 +82,18 @@ public class RecipeDAOImpl implements RecipeDAO {
             Element part = null;
             if (parts.item(i) instanceof Element) {
                 part = (Element) parts.item(i);
-            }
 
-            //parts have to be in the same order, refactor & test
-            NodeList partItems = part.getChildNodes();
-            for (int j = 0; j < partItems.getLength(); j++) {
-                Element item = null;
-                if (parts.item(i) instanceof Element) {
-                    item = (Element) parts.item(i);
-                }
-                if (item.getNodeName().equals("amount")) {
-                    item.setNodeValue(String.valueOf(ingredientList.get(i).getAmount())); //should += add or just replace !!ORDER
+                //parts have to be in the same order, refactor & test
+                NodeList partItems = part.getChildNodes();
+                for (int j = 0; j < partItems.getLength(); j++) {
+                    Element item = null;
+                    if (parts.item(i) instanceof Element) {
+                        item = (Element) parts.item(i);
+
+                        if (item.getNodeName().equals("amount")) {
+                            item.setNodeValue(String.valueOf(ingredientList.get(i).getAmount())); //should += add or just replace !!ORDER
+                        }
+                    }
                 }
             }
         }
@@ -113,10 +114,10 @@ public class RecipeDAOImpl implements RecipeDAO {
             Element item = null;
             if (receiptNameList.item(i) instanceof Element) {
                 item = (Element) receiptNameList.item(i);
-            }
 
-            Recipe receipt = findRecipesByName(item.getTextContent());
-            receiptList.add(receipt);
+                Recipe receipt = findRecipesByName(item.getTextContent());
+                receiptList.add(receipt);
+            }
         }
 
         return receiptList;
@@ -148,52 +149,53 @@ public class RecipeDAOImpl implements RecipeDAO {
             Element part = null;
             if (parts.item(i) instanceof Element) {
                 part = (Element) parts.item(i);
-            }
 
-            String ingredientName = null;
-            Unit unit = null;
-            int amount = 0;
 
-            NodeList partItems = part.getChildNodes();
-            for (int j = 0; j < partItems.getLength(); j++) {
-                Element item = null;
-                if (partItems.item(j) instanceof Element) {
-                    item = (Element) partItems.item(i);
-                }
+                String ingredientName = null;
+                Unit unit = null;
+                int amount = 0;
 
-                if (item.getNodeName().equals("ingredient")) {
-                    ingredientName = item.getTextContent();
-                }
+                NodeList partItems = part.getChildNodes();
+                for (int j = 0; j < partItems.getLength(); j++) {
+                    Element item = null;
+                    if (partItems.item(j) instanceof Element) {
+                        item = (Element) partItems.item(i);
 
-                if (item.getNodeName().equals("unit")) {
-                    String unitName = item.getTextContent();
-                    switch (unitName) {
-                        case "g":
-                            unit = Unit.g;
-                            break;
-                        case "kg":
-                            unit = Unit.kg;
-                            break;
-                        case "ml":
-                            unit = Unit.ml;
-                            break;
-                        case "l":
-                            unit = Unit.l;
-                            break;
-                        case "pcs":
-                            unit = Unit.pcs;
-                            break;
-                        default:
-                            unit = Unit.g;
-                            break;
+                        if (item.getNodeName().equals("ingredient")) {
+                            ingredientName = item.getTextContent();
+                        }
+
+                        if (item.getNodeName().equals("unit")) {
+                            String unitName = item.getTextContent();
+                            switch (unitName) {
+                                case "g":
+                                    unit = Unit.g;
+                                    break;
+                                case "kg":
+                                    unit = Unit.kg;
+                                    break;
+                                case "ml":
+                                    unit = Unit.ml;
+                                    break;
+                                case "l":
+                                    unit = Unit.l;
+                                    break;
+                                case "pcs":
+                                    unit = Unit.pcs;
+                                    break;
+                                default:
+                                    unit = Unit.g;
+                                    break;
+                            }
+                        }
+
+                        if (item.getNodeName().equals("amount")) {
+                            amount = Integer.parseInt(item.getTextContent());
+                        }
                     }
-                }
-
-                if (item.getNodeName().equals("amount")) {
-                    amount = Integer.parseInt(item.getTextContent());
+                    ingredientList.add(new Ingredient(ingredientName, unit, amount));
                 }
             }
-            ingredientList.add(new Ingredient(ingredientName, unit, amount));
         }
 
         return ingredientList;
