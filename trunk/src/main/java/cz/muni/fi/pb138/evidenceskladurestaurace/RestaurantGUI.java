@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,8 +52,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             URI ingredients = getClass().getResource(INGREDIENTS).toURI();
             URI recipes = getClass().getResource(RECIPES).toURI();
 
-     //     setDocument(recipes, recipeDB);
-//            setDocument(ingredients, ingredientDB);
+            recipeDB = setDocument(recipes);
             ingredientDB = setDocument(ingredients);
 
         }catch(Exception ex){
@@ -62,17 +62,21 @@ public class RestaurantGUI extends javax.swing.JFrame {
             System.err.print("ashdsadsad");
         }
         ingredientDAO.setDoc(ingredientDB);
-    //    recipeDAO.setDoc(recipeDB);
+        recipeDAO.setDoc(recipeDB);
         initComponents();
     }
 
+    private Ingredient getSelectedIngredient(int row){
+        return ingredientDAO.findIngredientsByName((String) ingredienceTable.getValueAt(row, 0));
+    }
+    
     private void refreshIngredientsTable(){
         //pre kotrolny vypis
         List<Ingredient> temp = ingredientDAO.findAll();
         for(Ingredient i : temp){
             System.out.println(i.toString());
         }
-
+        
         ingredientsTableModel.setIngredients(ingredientDAO.findAll());
 
     }
@@ -128,7 +132,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredienceTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        newIngredientButton = new javax.swing.JButton();
+        editIngredient = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -229,7 +234,19 @@ public class RestaurantGUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(ingredienceTable);
 
-        jButton1.setText("Add new Ingredient");
+        newIngredientButton.setText("Add Ingredient");
+        newIngredientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newIngredientButtonActionPerformed(evt);
+            }
+        });
+
+        editIngredient.setText("Edit Ingredient");
+        editIngredient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editIngredientActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -239,8 +256,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(editIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(newIngredientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +267,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(newIngredientButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editIngredient)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addContainerGap())
@@ -297,7 +318,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,6 +346,18 @@ public class RestaurantGUI extends javax.swing.JFrame {
 
        }
     }//GEN-LAST:event_tabbedPaneStateChanged
+
+    private void newIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientButtonActionPerformed
+        new IngredientDialog(ingredientsTableModel, ingredientDAO).setVisible(true);
+    }//GEN-LAST:event_newIngredientButtonActionPerformed
+
+    private void editIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editIngredientActionPerformed
+         if (ingredienceTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a ingredient you wish to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new IngredientDialog(ingredientsTableModel, ingredientDAO, getSelectedIngredient(ingredienceTable.getSelectedRow())).setVisible(true);
+        }
+    }//GEN-LAST:event_editIngredientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,8 +395,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton editIngredient;
     private javax.swing.JTable ingredienceTable;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -381,6 +414,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton newIngredientButton;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
