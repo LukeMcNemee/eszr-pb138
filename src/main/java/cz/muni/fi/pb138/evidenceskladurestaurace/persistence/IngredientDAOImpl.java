@@ -107,7 +107,7 @@ public class IngredientDAOImpl implements IngredientDAO {
                 item = (Element) productItems.item(i);
 
                 if (item.getNodeName().equals("amount")) {
-                    item.setNodeValue(String.valueOf(ingredient.getAmount())); //should += add or just replace
+                    item.setTextContent(String.valueOf(ingredient.getAmount())); //should += add or just replace
                 }
             }
         }
