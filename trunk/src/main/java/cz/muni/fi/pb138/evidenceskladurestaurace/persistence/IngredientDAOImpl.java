@@ -107,13 +107,13 @@ public class IngredientDAOImpl implements IngredientDAO {
                 item = (Element) productItems.item(i);
 
                 if (item.getNodeName().equals("amount")) {
-                    item.setTextContent(String.valueOf(ingredient.getAmount())); //should += add or just replace
+                    item.setTextContent(String.valueOf(ingredient.getAmount()));
+                }
+                if (item.getNodeName().equals("unit")) {
+                    item.setTextContent(String.valueOf(ingredient.getUnit()));
                 }
             }
         }
-        /*
-         write to DOM?
-         */
     }
 
     @Override
