@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -130,8 +131,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 
         for (int i = 0; i < receiptList.getLength(); i++) {
             if (receiptList.item(i) instanceof Element) {
-                Element nameElement = (Element) receiptList.item(i).getFirstChild();
-
+                Node nameElement =  receiptList.item(i).getFirstChild();
+                
                 if (nameElement.getTextContent().equals(name)) {
                     el = (Element) receiptList.item(i);
                 }

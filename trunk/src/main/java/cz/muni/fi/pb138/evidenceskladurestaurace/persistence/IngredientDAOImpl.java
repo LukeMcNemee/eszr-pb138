@@ -53,7 +53,7 @@ public class IngredientDAOImpl implements IngredientDAO {
         Unit unit = null;
         int amount = 0;
 
-        Element product = getProductElementByName(name);
+            Element product = getProductElementByName(name);
         NodeList productItems = product.getChildNodes();
 
         for (int i = 0; i < productItems.getLength(); i++) {

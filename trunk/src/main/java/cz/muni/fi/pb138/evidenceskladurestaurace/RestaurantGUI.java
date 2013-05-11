@@ -9,7 +9,8 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAOImpl;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
-import cz.muni.fi.pb138.evidenceskladurestaurace.tablemodel.IngredientsTableModel;
+import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
+import cz.muni.fi.pb138.evidenceskladurestaurace.model.RecipeListModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -41,6 +42,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private RecipeDAO recipeDAO = new RecipeDAOImpl();
     private IngredientDAO ingredientDAO = new IngredientDAOImpl();
     private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
+    private RecipeListModel recipeListModel = new RecipeListModel();
 
 
     /**
@@ -79,6 +81,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
         
         ingredientsTableModel.setIngredients(ingredientDAO.findAll());
 
+    }
+    
+    private void refreshRecipeList(){
+        recipeListModel.setRecipes(recipeDAO.findAll());
     }
 
     private Document setDocument(URI uri) throws SAXException, ParserConfigurationException,
@@ -123,7 +129,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        recipeList = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -152,12 +158,12 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        recipeList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(recipeList);
 
         jButton2.setText("Cook");
 
@@ -318,7 +324,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,7 +343,16 @@ public class RestaurantGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
-       if(tabbedPane.getSelectedIndex()==1) {
+        if(tabbedPane.getSelectedIndex()==0) {
+           if (!recipeList.getModel().equals(recipeListModel)) {
+               recipeList.setModel(recipeListModel);
+           }
+
+           refreshRecipeList();
+
+       }
+        
+        if(tabbedPane.getSelectedIndex()==1) {
            if (!ingredienceTable.getModel().equals(ingredientsTableModel)) {
                ingredienceTable.setModel(ingredientsTableModel);
            }
@@ -401,7 +416,6 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -415,6 +429,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton newIngredientButton;
+    private javax.swing.JList recipeList;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

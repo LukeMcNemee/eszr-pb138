@@ -7,7 +7,7 @@ package cz.muni.fi.pb138.evidenceskladurestaurace;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Unit;
-import cz.muni.fi.pb138.evidenceskladurestaurace.tablemodel.IngredientsTableModel;
+import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
 import javax.swing.DefaultComboBoxModel;
 
 /**
