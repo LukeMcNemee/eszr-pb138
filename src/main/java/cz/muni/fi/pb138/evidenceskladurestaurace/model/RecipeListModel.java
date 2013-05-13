@@ -5,9 +5,13 @@
 package cz.muni.fi.pb138.evidenceskladurestaurace.model;
 
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 
 
 /**
@@ -37,7 +41,7 @@ public class RecipeListModel extends AbstractListModel {
             this.recipes = new ArrayList<>(recipes);
         fireContentsChanged(this, 0, recipes.size());
         }
-    }
+    }    
     
     
 }
