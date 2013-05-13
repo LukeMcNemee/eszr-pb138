@@ -59,6 +59,13 @@ public class Recipe {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" + "name=" + name + ", ingredients=" + ingredients + '}';
+    }
+    
+    
     
     
     
