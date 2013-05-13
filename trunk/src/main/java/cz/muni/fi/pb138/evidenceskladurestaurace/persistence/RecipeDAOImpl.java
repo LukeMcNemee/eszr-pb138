@@ -66,8 +66,14 @@ public class RecipeDAOImpl implements RecipeDAO {
     public Recipe findRecipesByName(String name) {
         List<Ingredient> ingredientList = null;
 
+
         Element receipt = getReceiptElementByName(name);
+//        System.err.println(receipt.getTagName());
+//        System.exit(1);
         ingredientList = findAllIngredientsInReceiptElement(receipt);
+
+//        System.err.println(new Recipe(name, ingredientList));
+//        System.exit(1);
 
         return new Recipe(name, ingredientList);
 
@@ -112,9 +118,8 @@ public class RecipeDAOImpl implements RecipeDAO {
         NodeList receiptNameList = doc.getElementsByTagName("name");
 
         for (int i = 0; i < receiptNameList.getLength(); i++) {
-            Element item = null;
             if (receiptNameList.item(i) instanceof Element) {
-                item = (Element) receiptNameList.item(i);
+                Element item = (Element) receiptNameList.item(i);
 
                 Recipe receipt = findRecipesByName(item.getTextContent());
                 receiptList.add(receipt);
@@ -131,10 +136,20 @@ public class RecipeDAOImpl implements RecipeDAO {
 
         for (int i = 0; i < receiptList.getLength(); i++) {
             if (receiptList.item(i) instanceof Element) {
-                Node nameElement =  receiptList.item(i).getFirstChild();
-                
-                if (nameElement.getTextContent().equals(name)) {
-                    el = (Element) receiptList.item(i);
+                Element receiptElement = (Element) receiptList.item(i);
+                NodeList receiptItems = receiptElement.getChildNodes();
+
+                for (int j = 0; j < receiptItems.getLength(); j++) {
+                    if (receiptItems.item(j) instanceof Element) {
+
+                        Element nameElement = (Element) receiptItems.item(j);
+                        if (nameElement.getNodeName().equals("name")) {
+
+                            if (nameElement.getTextContent().equals(name)) {
+                                el = (Element) receiptList.item(i);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -151,7 +166,6 @@ public class RecipeDAOImpl implements RecipeDAO {
             if (parts.item(i) instanceof Element) {
                 part = (Element) parts.item(i);
 
-
                 String ingredientName = null;
                 Unit unit = null;
                 int amount = 0;
@@ -160,7 +174,8 @@ public class RecipeDAOImpl implements RecipeDAO {
                 for (int j = 0; j < partItems.getLength(); j++) {
                     Element item = null;
                     if (partItems.item(j) instanceof Element) {
-                        item = (Element) partItems.item(i);
+
+                        item = (Element) partItems.item(j);
 
                         if (item.getNodeName().equals("ingredient")) {
                             ingredientName = item.getTextContent();
