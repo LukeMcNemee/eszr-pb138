@@ -66,14 +66,8 @@ public class RecipeDAOImpl implements RecipeDAO {
     public Recipe findRecipesByName(String name) {
         List<Ingredient> ingredientList = null;
 
-
         Element receipt = getReceiptElementByName(name);
-//        System.err.println(receipt.getTagName());
-//        System.exit(1);
         ingredientList = findAllIngredientsInReceiptElement(receipt);
-
-//        System.err.println(new Recipe(name, ingredientList));
-//        System.exit(1);
 
         return new Recipe(name, ingredientList);
 
@@ -209,8 +203,8 @@ public class RecipeDAOImpl implements RecipeDAO {
                             amount = Integer.parseInt(item.getTextContent());
                         }
                     }
-                    ingredientList.add(new Ingredient(ingredientName, unit, amount));
                 }
+                ingredientList.add(new Ingredient(ingredientName, unit, amount));
             }
         }
 
