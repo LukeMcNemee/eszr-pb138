@@ -12,6 +12,7 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.RecipeListModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
+import cz.muni.fi.pb138.evidenceskladurestaurace.service.IngredientsService;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
@@ -49,6 +50,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
     private IngredientsTableModel recipeIngredientsTableModel = new IngredientsTableModel();
     private RecipeListModel recipeListModel = new RecipeListModel();
+    private IngredientsService ingredientsService;
 
 
     /**
@@ -71,11 +73,12 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }
         ingredientDAO.setDoc(ingredientDB);
         recipeDAO.setDoc(recipeDB);
+        ingredientsService = new IngredientsService(ingredientDAO);
         initComponents();
     }
 
     private Ingredient getSelectedIngredient(int row){
-        return ingredientDAO.findIngredientsByName((String) ingredienceTable.getValueAt(row, 0));
+        return ingredientDAO.findIngredientsByName(String.valueOf(ingredienceTable.getValueAt(row, 0)));
     }
     
     private void refreshIngredientsTable(){
@@ -88,30 +91,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         ingredientsTableModel.setIngredients(ingredientDAO.findAll());
 
     }
-    private Boolean checkAllIngredients(String nameOfRecipe){
-        Recipe recipe = recipeDAO.findRecipesByName(nameOfRecipe);
-        System.out.println(recipe.toString());
-        for(Ingredient ingredient : recipe.getIngredients()){
-            if(!checkIngredient(ingredient))
-                return false;
-        }
-        return true;
-    }
-    
-    private Boolean checkIngredient(Ingredient ingredient){  
-        Ingredient ingredientFromDB;
-        try{
-            ingredientFromDB = ingredientDAO.findIngredientsByName(ingredient.getName());
-        }catch(NullPointerException ex){
-            return false;
-        }
-        if(ingredientFromDB.getAmount()>= ingredient.getAmount()){
-            return true;
-        }else{
-            return false;
-        }    
-    }
-    
+   
     private void refreshRecipeList(){
         recipeListModel.setRecipes(recipeDAO.findAll());        
     }
@@ -157,13 +137,15 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         recipeList = new javax.swing.JList();
-        jButton2 = new javax.swing.JButton();
+        cookingButton = new javax.swing.JButton();
         checkIngredientsButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        cookingSpinner = new javax.swing.JSpinner();
         jScrollPane4 = new javax.swing.JScrollPane();
         recipeIngredientsTable = new javax.swing.JTable();
+        maxButton = new javax.swing.JButton();
+        maxLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredienceTable = new javax.swing.JTable();
@@ -195,10 +177,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(recipeList);
 
-        jButton2.setText("Cook");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cookingButton.setText("Cook");
+        cookingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cookingButtonActionPerformed(evt);
             }
         });
 
@@ -223,8 +205,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         });
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
-        jSpinner1.setName(""); // NOI18N
+        cookingSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        cookingSpinner.setName(""); // NOI18N
 
         recipeIngredientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,6 +220,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         ));
         jScrollPane4.setViewportView(recipeIngredientsTable);
+
+        maxButton.setText("Maximum portions");
+        maxButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maxButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -260,10 +249,15 @@ public class RestaurantGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2))
-                                    .addComponent(checkIngredientsButton))
+                                        .addComponent(cookingButton))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(checkIngredientsButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(maxButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -275,11 +269,14 @@ public class RestaurantGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(checkIngredientsButton)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkIngredientsButton)
+                            .addComponent(maxButton)
+                            .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))
+                            .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cookingButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
@@ -384,7 +381,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         pack();
@@ -437,13 +434,23 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editIngredientActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void cookingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cookingButtonActionPerformed
+        if(recipeList.getSelectedIndex() ==-1 ){
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);        
+       }else {
+            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            if(ingredientsService.checkAllIngredients(recipe,(int) cookingSpinner.getValue())){
+                ingredientsService.cook(recipe, (int) cookingSpinner.getValue());
+            }else{
+                JOptionPane.showMessageDialog(this, "Not enough ingredients to cook so many portions", "Warning", JOptionPane.WARNING_MESSAGE);        
+            }
+        }
+        
+    }//GEN-LAST:event_cookingButtonActionPerformed
 
     private void recipeListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_recipeListValueChanged
          if (recipeList.getValueIsAdjusting() == false) {
-             Recipe recipe = recipeDAO.findRecipesByName((String) recipeList.getSelectedValue());
+             Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
              recipeIngredientsTableModel.setIngredients(recipe.getIngredients());
          }
     }//GEN-LAST:event_recipeListValueChanged
@@ -452,6 +459,16 @@ public class RestaurantGUI extends javax.swing.JFrame {
        //recipeList.setBackground(Color.red);
        recipeList.setCellRenderer(new MyCellRenderer());
     }//GEN-LAST:event_checkIngredientsButtonActionPerformed
+
+    private void maxButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxButtonActionPerformed
+        if(recipeList.getSelectedIndex() ==-1 ){
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);        
+       }else {
+            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            int maximum = ingredientsService.maximumPortions(recipe);
+            maxLabel.setText(String.valueOf(maximum));            
+        }
+    }//GEN-LAST:event_maxButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -494,7 +511,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         {
           super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
           Color bg;
-          if(checkAllIngredients((String) value)){
+          Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(value));
+          if(ingredientsService.checkAllIngredients( recipe, 1)){
             bg = Color.green;
           } else{
             bg = Color.red;
@@ -507,9 +525,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
      }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkIngredientsButton;
+    private javax.swing.JButton cookingButton;
+    private javax.swing.JSpinner cookingSpinner;
     private javax.swing.JButton editIngredient;
     private javax.swing.JTable ingredienceTable;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JMenu jMenu1;
@@ -522,7 +541,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton maxButton;
+    private javax.swing.JLabel maxLabel;
     private javax.swing.JButton newIngredientButton;
     private javax.swing.JTable recipeIngredientsTable;
     private javax.swing.JList recipeList;
