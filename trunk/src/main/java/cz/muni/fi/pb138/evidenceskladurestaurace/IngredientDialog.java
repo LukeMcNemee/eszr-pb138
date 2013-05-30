@@ -8,6 +8,11 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Unit;
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -19,7 +24,12 @@ public class IngredientDialog extends javax.swing.JFrame {
     private Ingredient ingredient;
     private IngredientDAO ingredientDAO;
     private IngredientsTableModel ingredientsTableModel;
+    private List<Ingredient> recipeIngredientList = new ArrayList<>();
+    private RecipeDAO recipeDAO = new RecipeDAOImpl();
+    private Recipe receipt = null;
     private Boolean createNew = true;
+    private Boolean recipeEdit = false;
+
     /**
      * Creates new form IngredientDialog
      */
@@ -31,21 +41,44 @@ public class IngredientDialog extends javax.swing.JFrame {
         ingredient = new Ingredient();
     }
 
-    public IngredientDialog(IngredientsTableModel ingredientsTableModel, IngredientDAO ingredientDAO, Ingredient ingredient){
+    public IngredientDialog(IngredientsTableModel ingredientsTableModel, IngredientDAO ingredientDAO, Ingredient ingredient) {
         initComponents();
         this.ingredient = ingredient;
         this.ingredientsTableModel = ingredientsTableModel;
         this.ingredientDAO = ingredientDAO;
         setLocationRelativeTo(null);
-        
+
         createNew = false;
         nameField.setText(ingredient.getName());
         unitBox.setSelectedItem(ingredient.getUnit());
         ammountSpinner.setValue(ingredient.getAmount());
         createButton.setText("Save");
-        ingredientLabel.setText("Edit Ingredient");      
-        
+        ingredientLabel.setText("Edit Ingredient");
+
     }
+
+    public IngredientDialog(IngredientsTableModel ingredientsTableModel, IngredientDAO ingredientDAO, Ingredient ingredient,RecipeDAO recipeDAO, Recipe receipt) {
+        initComponents();
+        this.ingredient = ingredient;
+        this.ingredientsTableModel = ingredientsTableModel;
+        this.ingredientDAO = ingredientDAO;
+        this.receipt = receipt;
+        this.recipeDAO = recipeDAO;
+
+        this.recipeIngredientList = receipt.getIngredients();
+
+        setLocationRelativeTo(null);
+
+        recipeEdit = true;
+        nameField.setText(ingredient.getName());
+        nameField.setEditable(false);
+        unitBox.setSelectedItem(ingredient.getUnit());
+        ammountSpinner.setValue(ingredient.getAmount());
+        createButton.setText("Save");
+        ingredientLabel.setText("Edit Ingredient");
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,17 +201,23 @@ public class IngredientDialog extends javax.swing.JFrame {
         ingredient.setName(nameField.getText());
         ingredient.setUnit((Unit) unitBox.getSelectedItem());
         ingredient.setAmount((int) ammountSpinner.getValue());
-        
-        if(createNew){
-            ingredientDAO.create(ingredient);
-        }else{ 
-            ingredientDAO.update(ingredient);
+
+        if (recipeEdit) {
+            ingredientsTableModel.setIngredients(recipeIngredientList);
+
+        } else {
+
+            if (createNew) {
+                ingredientDAO.create(ingredient);
+            } else {
+                ingredientDAO.update(ingredient);
+            }
+
+            ingredientsTableModel.setIngredients(ingredientDAO.findAll());
         }
-        ingredientsTableModel.setIngredients(ingredientDAO.findAll());
-        
-        dispose();     
+
+        dispose();
     }//GEN-LAST:event_createButtonActionPerformed
- 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner ammountSpinner;
     private javax.swing.JButton cancelButton;

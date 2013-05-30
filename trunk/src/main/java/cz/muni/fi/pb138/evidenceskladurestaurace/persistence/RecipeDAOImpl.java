@@ -1,5 +1,6 @@
 package cz.muni.fi.pb138.evidenceskladurestaurace.persistence;
 
+import com.sun.xml.internal.ws.util.localization.NullLocalizable;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
@@ -76,28 +77,64 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     public void update(Recipe recipe) {
         Element receipt = getReceiptElementByName(recipe.getName());
+        NodeList partsElement = receipt.getElementsByTagName("parts");
         NodeList parts = receipt.getElementsByTagName("part");
         List<Ingredient> ingredientList = recipe.getIngredients();
+        int numberOfElements = 0;
+        int numberOfIngredients = ingredientList.size();
 
+        //Edit existing ingredients
         for (int i = 0; i < parts.getLength(); i++) {
             Element part = null;
             if (parts.item(i) instanceof Element) {
                 part = (Element) parts.item(i);
 
-                //parts have to be in the same order, refactor & test
                 NodeList partItems = part.getChildNodes();
                 for (int j = 0; j < partItems.getLength(); j++) {
                     Element item = null;
-                    if (parts.item(i) instanceof Element) {
-                        item = (Element) parts.item(i);
+                    if (partItems.item(j) instanceof Element) {
+                        item = (Element) partItems.item(j);
 
                         if (item.getNodeName().equals("amount")) {
-                            item.setNodeValue(String.valueOf(ingredientList.get(i).getAmount())); //should += add or just replace !!ORDER
+                            item.setTextContent(String.valueOf(ingredientList.get(i).getAmount()));
+                            numberOfElements++;
                         }
                     }
                 }
             }
         }
+
+        Element partsEl =  null;
+        for (int i = 0; i < partsElement.getLength(); i++) {
+            if(partsElement.item(i) instanceof Element){
+                partsEl = (Element)partsElement.item(0);
+            }
+        }
+
+        //Added ingredients
+        if (numberOfElements < numberOfIngredients) {
+            int howMany = numberOfIngredients - numberOfElements;
+            for (int i = numberOfElements; i < numberOfIngredients; i++) {
+                Ingredient ingredient = ingredientList.get(i);
+
+                Element ingr = doc.createElement("ingredient");
+                ingr.setTextContent(ingredient.getName());
+
+                Element unit = doc.createElement("unit");
+                unit.setTextContent(ingredient.getUnit().toString());
+
+                Element amount = doc.createElement("amount");
+                amount.setTextContent(String.valueOf(ingredient.getAmount()));
+
+                Element part = doc.createElement("part");
+                part.appendChild(ingr);
+                part.appendChild(unit);
+                part.appendChild(amount);
+
+                partsEl.appendChild(part);
+            }
+        }
+        receipt.appendChild(partsEl);
     }
 
     @Override
