@@ -8,13 +8,18 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.RecipeListModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAOImpl;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
+import cz.muni.fi.pb138.evidenceskladurestaurace.service.IngredientsService;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -23,35 +28,48 @@ import javax.swing.JTextField;
  */
 public class ReceiptDialog extends javax.swing.JFrame {
 
-    private Recipe receipt;
-    private RecipeDAO receiptDao;
-    private RecipeListModel receiptListModel;
+    private RecipeDAO recipeDAO = new RecipeDAOImpl();
+    private IngredientDAO ingredientDAO = new IngredientDAOImpl();
+    private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
+    private IngredientsTableModel recipeIngredientsTableModel = new IngredientsTableModel();
+    private RecipeListModel recipeListModel = new RecipeListModel();
+    private IngredientsService ingredientsService;
+    private List <Ingredient> recipeIngredientList =  new ArrayList<>();
+    private Recipe receipt = null;
     private Boolean createNew = true;
+
     /**
      * Creates new form IngredientDialog
      */
-    public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao) {
+    //CREATE
+    public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao, IngredientDAO ingredientDAO) {
         initComponents();
-        this.receiptListModel = receiptListModel;
-        this.receiptDao = receiptDao;
+        this.recipeListModel = receiptListModel;
+        this.recipeDAO = receiptDao;
+        this.ingredientDAO = ingredientDAO;
         setLocationRelativeTo(null);
         receipt = new Recipe();
     }
 
-    public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao, Recipe receipt) {
+    //EDIT
+    public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao, IngredientDAO ingredientDAO, Recipe receipt) {
         initComponents();
         this.receipt = receipt;
-        this.receiptListModel = receiptListModel;
-        this.receiptDao = receiptDao;
+        this.recipeListModel = receiptListModel;
+        this.recipeDAO = receiptDao;
+        this.ingredientDAO = ingredientDAO;
         setLocationRelativeTo(null);
+
+        recipeIngredientList = receipt.getIngredients();
+        ingredientsTableModel.setIngredients(recipeIngredientList);
+        ingredienceTable.setModel(ingredientsTableModel);
 
         createNew = false;
 
         receiptLabel.setText("Edit Receipt");
         receiptName.setText(receipt.getName());
-
+        receiptName.setEditable(false);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,17 +84,12 @@ public class ReceiptDialog extends javax.swing.JFrame {
         receiptName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         addIngredientButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         receiptLabel = new javax.swing.JLabel();
-        ingredientsPanel = new javax.swing.JPanel();
-        ingredientPanel = new javax.swing.JPanel();
-        ingredientNameCombo = new javax.swing.JComboBox();
-        ingredientAmount = new javax.swing.JTextField();
-        ingredientUnit = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ingredienceTable = new javax.swing.JTable();
+        editIngredient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,12 +103,6 @@ public class ReceiptDialog extends javax.swing.JFrame {
                 addIngredientButtonActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Ingredient name");
-
-        jLabel4.setText("Amount");
-
-        jLabel5.setText("Unit");
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -113,56 +120,25 @@ public class ReceiptDialog extends javax.swing.JFrame {
 
         receiptLabel.setText("Create new Receipt");
 
-        ingredientNameCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ingredienceTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        ingredientAmount.addActionListener(new java.awt.event.ActionListener() {
+            }
+        ));
+        jScrollPane1.setViewportView(ingredienceTable);
+
+        editIngredient.setText("Edit Ingredient");
+        editIngredient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ingredientAmountActionPerformed(evt);
+                editIngredientActionPerformed(evt);
             }
         });
-
-        ingredientUnit.setText("unitName");
-
-        org.jdesktop.layout.GroupLayout ingredientPanelLayout = new org.jdesktop.layout.GroupLayout(ingredientPanel);
-        ingredientPanel.setLayout(ingredientPanelLayout);
-        ingredientPanelLayout.setHorizontalGroup(
-            ingredientPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(ingredientPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(ingredientNameCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(ingredientAmount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(ingredientUnit)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-        ingredientPanelLayout.setVerticalGroup(
-            ingredientPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, ingredientPanelLayout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(ingredientPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(ingredientNameCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(ingredientAmount, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(ingredientUnit))
-                .addContainerGap())
-        );
-
-        org.jdesktop.layout.GroupLayout ingredientsPanelLayout = new org.jdesktop.layout.GroupLayout(ingredientsPanel);
-        ingredientsPanel.setLayout(ingredientsPanelLayout);
-        ingredientsPanelLayout.setHorizontalGroup(
-            ingredientsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(ingredientsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(ingredientPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        ingredientsPanelLayout.setVerticalGroup(
-            ingredientsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(ingredientsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(ingredientPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
-        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,34 +151,26 @@ public class ReceiptDialog extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(37, 37, 37)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(jLabel2))
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 26, Short.MAX_VALUE)
-                        .add(ingredientsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(34, 34, 34))
                     .add(layout.createSequentialGroup()
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 526, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(26, 26, 26)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(addIngredientButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(editIngredient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(0, 105, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel1)
+                            .add(jLabel2)
+                            .add(saveButton))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
                                 .add(42, 42, 42)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(receiptName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 288, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(layout.createSequentialGroup()
-                                        .add(jLabel3)
-                                        .add(96, 96, 96)
-                                        .add(jLabel4)
-                                        .add(63, 63, 63)
-                                        .add(jLabel5))))
+                                .add(receiptName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 288, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(layout.createSequentialGroup()
-                                .add(17, 17, 17)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(layout.createSequentialGroup()
-                                        .add(saveButton)
-                                        .add(43, 43, 43)
-                                        .add(cancelButton))
-                                    .add(addIngredientButton))))
-                        .addContainerGap())))
+                                .add(15, 15, 15)
+                                .add(cancelButton)))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -214,21 +182,17 @@ public class ReceiptDialog extends javax.swing.JFrame {
                     .add(jLabel1)
                     .add(receiptName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jLabel4)
-                    .add(jLabel5))
+                .add(jLabel2)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(12, 12, 12)
-                        .add(jLabel2)
-                        .add(213, 213, 213))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 396, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(36, 36, 36)
+                        .add(addIngredientButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(ingredientsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)))
-                .add(addIngredientButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 27, Short.MAX_VALUE)
+                        .add(editIngredient)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 45, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(saveButton)
                     .add(cancelButton))
@@ -238,71 +202,53 @@ public class ReceiptDialog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ingredientAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingredientAmountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ingredientAmountActionPerformed
-
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        receipt.setName(receiptName.getText());
+//        receipt.setName(receiptName.getText());
 
-        if(createNew){
-            receiptDao.create(receipt);
+        if (createNew) {
+            recipeDAO.create(receipt);
         } else {
-            receiptDao.update(receipt);
+            recipeDAO.update(receipt);
         }
 
-        receiptListModel.setRecipes(receiptDao.findAll());
+        recipeListModel.setRecipes(recipeDAO.findAll());
 
         dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void addIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientButtonActionPerformed
-        ingredientsPanel.setLayout(new BoxLayout(ingredientsPanel, BoxLayout.Y_AXIS));
-
-        JComboBox newIngredientName = new JComboBox();
-        newIngredientName.add(ingredientNameCombo);
-
-        JTextField newIngredientAmount = new JTextField();
-        newIngredientAmount.add(ingredientAmount);
-
-        JLabel newIngredientUnit = new JLabel();
-        newIngredientUnit.add(ingredientUnit);
-
-        JPanel newPanel = new JPanel();
-        newPanel.add(newIngredientName);
-        newPanel.add(newIngredientAmount);
-        newPanel.add(newIngredientUnit);
-
-        ingredientsPanel.add(newPanel);
-
-        ingredientsPanel.revalidate();
-
-
-        // TODOOOOO :
-        // http://stackoverflow.com/questions/15127056/dynamic-adding-jpanel-to-another-jpanel-in-java-swing
-//        ingredientsPanel.repaint();
-
-
-
+        new IngredientForReceiptDialog(ingredientsTableModel, ingredientDAO, recipeDAO, receipt).setVisible(true);
     }//GEN-LAST:event_addIngredientButtonActionPerformed
 
+    private Ingredient getSelectedIngredient(int row) {
+        String ingrName =  String.valueOf(ingredienceTable.getValueAt(row, 0));
+        for (Ingredient ingr : recipeIngredientList){
+            if(ingr.getName().equals(ingrName)) {
+                return ingr;
+            }
+        }
+        return null;
+    }
+
+    private void editIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editIngredientActionPerformed
+        if (ingredienceTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a ingredient you wish to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new IngredientDialog(ingredientsTableModel, ingredientDAO, getSelectedIngredient(ingredienceTable.getSelectedRow()), recipeDAO, receipt).setVisible(true);
+        }
+    }//GEN-LAST:event_editIngredientActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addIngredientButton;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField ingredientAmount;
-    private javax.swing.JComboBox ingredientNameCombo;
-    private javax.swing.JPanel ingredientPanel;
-    private javax.swing.JLabel ingredientUnit;
-    private javax.swing.JPanel ingredientsPanel;
+    private javax.swing.JButton editIngredient;
+    private javax.swing.JTable ingredienceTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel receiptLabel;
     private javax.swing.JTextField receiptName;
     private javax.swing.JButton saveButton;
