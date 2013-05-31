@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.evidenceskladurestaurace;
 
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
@@ -67,7 +63,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         if (ingredientDB == null) {
-            System.err.print("ashdsadsad");
+            System.err.print("No XML loaded");
         }
         ingredientDAO.setDoc(ingredientDB);
         recipeDAO.setDoc(recipeDB);
@@ -145,6 +141,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         maxButton = new javax.swing.JButton();
         maxLabel = new javax.swing.JLabel();
         editRecipe = new javax.swing.JButton();
+        deleteRecipe = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredienceTable = new javax.swing.JTable();
@@ -234,6 +231,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         });
 
+        deleteRecipe.setText("Delete Recipe");
+        deleteRecipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRecipeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,31 +245,34 @@ public class RestaurantGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(createEditReceipt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editRecipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(checkIngredientsButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(maxButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(createEditReceipt)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cookingButton))
+                                        .addComponent(cookingButton)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(checkIngredientsButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(maxButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(editRecipe)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deleteRecipe))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -283,12 +290,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cookingButton))
+                            .addComponent(cookingButton)
+                            .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
                             .addComponent(createEditReceipt)
-                            .addComponent(editRecipe)))
+                            .addComponent(editRecipe)
+                            .addComponent(deleteRecipe)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -484,9 +492,20 @@ public class RestaurantGUI extends javax.swing.JFrame {
         if (recipeList.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Please select a recipe you wish to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            new ReceiptDialog(recipeListModel, recipeDAO, ingredientDAO, recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()))).setVisible(true);
+            new ReceiptDialog(recipeListModel, recipeIngredientsTableModel, recipeDAO, ingredientDAO, recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()))).setVisible(true);
         }
     }//GEN-LAST:event_editRecipeActionPerformed
+
+    private void deleteRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRecipeActionPerformed
+        if (recipeList.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Recipe receipt = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            recipeDAO.delete(receipt);
+            recipeListModel.setRecipes(recipeDAO.findAll());
+            recipeList.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_deleteRecipeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,6 +564,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JButton cookingButton;
     private javax.swing.JSpinner cookingSpinner;
     private javax.swing.JButton createEditReceipt;
+    private javax.swing.JButton deleteRecipe;
     private javax.swing.JButton editIngredient;
     private javax.swing.JButton editRecipe;
     private javax.swing.JTable ingredienceTable;

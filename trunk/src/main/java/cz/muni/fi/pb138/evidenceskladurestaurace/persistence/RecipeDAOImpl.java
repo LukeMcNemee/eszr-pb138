@@ -78,63 +78,39 @@ public class RecipeDAOImpl implements RecipeDAO {
     public void update(Recipe recipe) {
         Element receipt = getReceiptElementByName(recipe.getName());
         NodeList partsElement = receipt.getElementsByTagName("parts");
-        NodeList parts = receipt.getElementsByTagName("part");
         List<Ingredient> ingredientList = recipe.getIngredients();
-        int numberOfElements = 0;
-        int numberOfIngredients = ingredientList.size();
 
-        //Edit existing ingredients
-        for (int i = 0; i < parts.getLength(); i++) {
-            Element part = null;
-            if (parts.item(i) instanceof Element) {
-                part = (Element) parts.item(i);
-
-                NodeList partItems = part.getChildNodes();
-                for (int j = 0; j < partItems.getLength(); j++) {
-                    Element item = null;
-                    if (partItems.item(j) instanceof Element) {
-                        item = (Element) partItems.item(j);
-
-                        if (item.getNodeName().equals("amount")) {
-                            item.setTextContent(String.valueOf(ingredientList.get(i).getAmount()));
-                            numberOfElements++;
-                        }
-                    }
-                }
-            }
-        }
-
-        Element partsEl =  null;
+        Element partsEl = null;
         for (int i = 0; i < partsElement.getLength(); i++) {
-            if(partsElement.item(i) instanceof Element){
-                partsEl = (Element)partsElement.item(0);
+            if (partsElement.item(i) instanceof Element) {
+                partsEl = (Element) partsElement.item(0);
             }
         }
+        //remove all then add updated
+        receipt.removeChild(partsEl);
 
-        //Added ingredients
-        if (numberOfElements < numberOfIngredients) {
-            int howMany = numberOfIngredients - numberOfElements;
-            for (int i = numberOfElements; i < numberOfIngredients; i++) {
-                Ingredient ingredient = ingredientList.get(i);
+        Element newPartsEl = doc.createElement("parts");
 
-                Element ingr = doc.createElement("ingredient");
-                ingr.setTextContent(ingredient.getName());
+        for (Ingredient ingredient : ingredientList) {
 
-                Element unit = doc.createElement("unit");
-                unit.setTextContent(ingredient.getUnit().toString());
+            Element ingr = doc.createElement("ingredient");
+            ingr.setTextContent(ingredient.getName());
 
-                Element amount = doc.createElement("amount");
-                amount.setTextContent(String.valueOf(ingredient.getAmount()));
+            Element unit = doc.createElement("unit");
+            unit.setTextContent(ingredient.getUnit().toString());
 
-                Element part = doc.createElement("part");
-                part.appendChild(ingr);
-                part.appendChild(unit);
-                part.appendChild(amount);
+            Element amount = doc.createElement("amount");
+            amount.setTextContent(String.valueOf(ingredient.getAmount()));
 
-                partsEl.appendChild(part);
-            }
+            Element part = doc.createElement("part");
+            part.appendChild(ingr);
+            part.appendChild(unit);
+            part.appendChild(amount);
+
+            newPartsEl.appendChild(part);
         }
-        receipt.appendChild(partsEl);
+
+        receipt.appendChild(newPartsEl);
     }
 
     @Override

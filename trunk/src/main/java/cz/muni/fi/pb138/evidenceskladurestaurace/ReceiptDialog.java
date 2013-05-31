@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.evidenceskladurestaurace;
 
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
@@ -12,15 +8,9 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAOImpl;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
-import cz.muni.fi.pb138.evidenceskladurestaurace.service.IngredientsService;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -31,16 +21,14 @@ public class ReceiptDialog extends javax.swing.JFrame {
     private RecipeDAO recipeDAO = new RecipeDAOImpl();
     private IngredientDAO ingredientDAO = new IngredientDAOImpl();
     private IngredientsTableModel ingredientsTableModel = new IngredientsTableModel();
-    private IngredientsTableModel recipeIngredientsTableModel = new IngredientsTableModel();
+    private IngredientsTableModel ingredientsTableModelRestaurant = new IngredientsTableModel();
     private RecipeListModel recipeListModel = new RecipeListModel();
-    private IngredientsService ingredientsService;
-    private List <Ingredient> recipeIngredientList =  new ArrayList<>();
+    private List<Ingredient> recipeIngredientList = new ArrayList<>();
     private Recipe receipt = null;
+    private Ingredient ingredient = null;
     private Boolean createNew = true;
 
-    /**
-     * Creates new form IngredientDialog
-     */
+
     //CREATE
     public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao, IngredientDAO ingredientDAO) {
         initComponents();
@@ -49,15 +37,22 @@ public class ReceiptDialog extends javax.swing.JFrame {
         this.ingredientDAO = ingredientDAO;
         setLocationRelativeTo(null);
         receipt = new Recipe();
+
+        ingredientsTableModel.setIngredients(recipeIngredientList);
+        ingredienceTable.setModel(ingredientsTableModel);
+
+        editIngredient.setVisible(false);
+        deleteIngredient.setVisible(false);
     }
 
     //EDIT
-    public ReceiptDialog(RecipeListModel receiptListModel, RecipeDAO receiptDao, IngredientDAO ingredientDAO, Recipe receipt) {
+    public ReceiptDialog(RecipeListModel receiptListModel,IngredientsTableModel ingredientsTableModelRestaurant, RecipeDAO receiptDao, IngredientDAO ingredientDAO, Recipe receipt) {
         initComponents();
         this.receipt = receipt;
         this.recipeListModel = receiptListModel;
         this.recipeDAO = receiptDao;
         this.ingredientDAO = ingredientDAO;
+        this.ingredientsTableModelRestaurant = ingredientsTableModelRestaurant;
         setLocationRelativeTo(null);
 
         recipeIngredientList = receipt.getIngredients();
@@ -90,6 +85,7 @@ public class ReceiptDialog extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ingredienceTable = new javax.swing.JTable();
         editIngredient = new javax.swing.JButton();
+        deleteIngredient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,6 +136,13 @@ public class ReceiptDialog extends javax.swing.JFrame {
             }
         });
 
+        deleteIngredient.setText("Delete Ingredient");
+        deleteIngredient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteIngredientActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,8 +159,9 @@ public class ReceiptDialog extends javax.swing.JFrame {
                         .add(26, 26, 26)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(addIngredientButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(editIngredient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .add(0, 105, Short.MAX_VALUE))
+                            .add(editIngredient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(deleteIngredient, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(0, 89, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
@@ -191,7 +195,9 @@ public class ReceiptDialog extends javax.swing.JFrame {
                         .add(36, 36, 36)
                         .add(addIngredientButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(editIngredient)))
+                        .add(editIngredient)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(deleteIngredient)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 45, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(saveButton)
@@ -207,17 +213,25 @@ public class ReceiptDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-//        receipt.setName(receiptName.getText());
-
-        if (createNew) {
-            recipeDAO.create(receipt);
+        if (receiptName.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please add a name to the receipt", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (ingredienceTable.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please add at least one ingredient before saving", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            recipeDAO.update(receipt);
+            receipt.setName(receiptName.getText());
+
+            if (createNew) {
+                recipeDAO.create(receipt);
+            } else {
+                recipeDAO.update(receipt);
+            }
+
+            recipeListModel.setRecipes(recipeDAO.findAll());
+            ingredientsTableModelRestaurant.setIngredients(receipt.getIngredients());
+
+            dispose();
         }
 
-        recipeListModel.setRecipes(recipeDAO.findAll());
-
-        dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void addIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addIngredientButtonActionPerformed
@@ -225,9 +239,9 @@ public class ReceiptDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_addIngredientButtonActionPerformed
 
     private Ingredient getSelectedIngredient(int row) {
-        String ingrName =  String.valueOf(ingredienceTable.getValueAt(row, 0));
-        for (Ingredient ingr : recipeIngredientList){
-            if(ingr.getName().equals(ingrName)) {
+        String ingrName = String.valueOf(ingredienceTable.getValueAt(row, 0));
+        for (Ingredient ingr : recipeIngredientList) {
+            if (ingr.getName().equals(ingrName)) {
                 return ingr;
             }
         }
@@ -241,9 +255,23 @@ public class ReceiptDialog extends javax.swing.JFrame {
             new IngredientDialog(ingredientsTableModel, ingredientDAO, getSelectedIngredient(ingredienceTable.getSelectedRow()), recipeDAO, receipt).setVisible(true);
         }
     }//GEN-LAST:event_editIngredientActionPerformed
+
+    private void deleteIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIngredientActionPerformed
+        if (ingredienceTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a ingredient you wish to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            ingredient = getSelectedIngredient(ingredienceTable.getSelectedRow());
+
+            recipeIngredientList.remove(ingredient);
+            receipt.setIngredients(recipeIngredientList);
+
+            ingredientsTableModel.setIngredients(recipeIngredientList);
+        }
+    }//GEN-LAST:event_deleteIngredientActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addIngredientButton;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton deleteIngredient;
     private javax.swing.JButton editIngredient;
     private javax.swing.JTable ingredienceTable;
     private javax.swing.JLabel jLabel1;
