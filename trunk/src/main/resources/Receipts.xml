@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="Receipts_schema.xsd">
+<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <receipt>
     <name>Asijské kuře</name>
     <parts>

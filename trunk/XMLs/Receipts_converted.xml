@@ -2,7 +2,7 @@
 
 <!DOCTYPE receipts
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Receipts_converted_schema.xsd">
+<receipts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <receipt>
       <name>Asijské kuře</name>
       <parts>
