@@ -1,16 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.evidenceskladurestaurace;
 
+import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Ingredient;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
-import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Unit;
-import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
+import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Unit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;

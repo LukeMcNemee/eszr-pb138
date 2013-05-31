@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.evidenceskladurestaurace;
 
 import cz.muni.fi.pb138.evidenceskladurestaurace.model.IngredientsTableModel;
@@ -10,10 +6,8 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.IngredientDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAO;
 import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.RecipeDAOImpl;
-import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Unit;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -27,8 +21,6 @@ public class IngredientForReceiptDialog extends javax.swing.JFrame {
     private List<Ingredient> recipeIngredientList = new ArrayList<>();
     private RecipeDAO recipeDAO = new RecipeDAOImpl();
     private Recipe receipt = null;
-    private Boolean createNew = true;
-    private Boolean recipeEdit = false;
     private List<Ingredient> allIngredients = null;
 
     public IngredientForReceiptDialog(IngredientsTableModel ingredientsTableModel, IngredientDAO ingredientDAO, RecipeDAO recipeDAO, Recipe receipt) {
@@ -39,12 +31,15 @@ public class IngredientForReceiptDialog extends javax.swing.JFrame {
         this.receipt = receipt;
         this.recipeDAO = recipeDAO;
 
-        this.recipeIngredientList = receipt.getIngredients();
+        // new recipe does not have ingredients
+        if (receipt.getIngredients() != null) {
+            this.recipeIngredientList = receipt.getIngredients();
+        }
 
         setLocationRelativeTo(null);
 
         allIngredients = ingredientDAO.findAll();
-        for(Ingredient ingr : allIngredients){
+        for (Ingredient ingr : allIngredients) {
             ingredientBox.addItem(ingr.getName());
         }
 
@@ -187,8 +182,6 @@ public class IngredientForReceiptDialog extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_addIngredientActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addIngredient;
     private javax.swing.JSpinner amountSpinner;
