@@ -1,6 +1,5 @@
 package cz.muni.fi.pb138.evidenceskladurestaurace.persistence;
 
-import com.sun.xml.internal.ws.util.localization.NullLocalizable;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
