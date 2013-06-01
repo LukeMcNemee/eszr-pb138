@@ -94,7 +94,12 @@ public class IngredientDialog extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         ingredientLabel.setText("Create new Ingredient");
 
@@ -214,6 +219,11 @@ public class IngredientDialog extends javax.swing.JFrame {
 
         dispose();
     }//GEN-LAST:event_createButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner ammountSpinner;
     private javax.swing.JButton cancelButton;
