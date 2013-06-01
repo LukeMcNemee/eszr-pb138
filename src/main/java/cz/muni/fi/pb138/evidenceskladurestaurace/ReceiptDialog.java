@@ -87,7 +87,12 @@ public class ReceiptDialog extends javax.swing.JFrame {
         editIngredient = new javax.swing.JButton();
         deleteIngredient = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Receipt Name:");
 
@@ -150,7 +155,7 @@ public class ReceiptDialog extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(234, 234, 234)
                 .add(receiptLabel)
-                .addContainerGap())
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(layout.createSequentialGroup()
                 .add(37, 37, 37)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -268,6 +273,11 @@ public class ReceiptDialog extends javax.swing.JFrame {
             ingredientsTableModel.setIngredients(recipeIngredientList);
         }
     }//GEN-LAST:event_deleteIngredientActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addIngredientButton;
     private javax.swing.JButton cancelButton;
