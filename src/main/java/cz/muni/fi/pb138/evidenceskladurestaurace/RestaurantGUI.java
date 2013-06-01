@@ -167,10 +167,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 while (i.hasNext()) {
                     recipeDAO.create((Recipe) i.next());
                 }
+                JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Import failed because:" + e.toString(), "Warning", WIDTH, null);
-            }
-            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+            }            
             return null;
         }        
 
@@ -220,10 +220,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
                         ingredientDAO.create(next);
                     }
                 }
+                JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Import failed because:" + e.toString(), "Warning", WIDTH, null);
-            }
-            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+            }           
             return null;
         }        
 
