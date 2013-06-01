@@ -140,39 +140,43 @@ public class RestaurantGUI extends javax.swing.JFrame {
         
         @Override
         protected Void doInBackground() throws Exception {
-            //import nacteme jako DOM tree
-            URI file = new URI(path);
-            Document doc = setDocument(file);
+            try {
+                //import nacteme jako DOM tree
+                URI file = new URI(path);
+                Document doc = setDocument(file);
 
-            //nacteme schema pro recepty
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Source schemaFile = new StreamSource(new File(getClass().getResource(RECIPES_SCHEMA).toURI()));
-            Schema schema = factory.newSchema(schemaFile);
+                //nacteme schema pro recepty
+                SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                Source schemaFile = new StreamSource(new File(getClass().getResource(RECIPES_SCHEMA).toURI()));
+                Schema schema = factory.newSchema(schemaFile);
 
-            //overime dokument oproti schema
-            try{
-            Validator validator = schema.newValidator();
-            validator.validate(new DOMSource(doc));
-            //pokud neni dokument validni, vznika SAXException
-            } catch (SAXException e) {
-                JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null);
-                e.printStackTrace();
+                //overime dokument oproti schema
+                try {
+                    Validator validator = schema.newValidator();
+                    validator.validate(new DOMSource(doc));
+                    //pokud neni dokument validni, vznika SAXException
+                } catch (SAXException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null);
+                    throw e;
+                }
+                //pridame recepty do databaze
+                RecipeDAOImpl imported = new RecipeDAOImpl();
+                imported.setDoc(doc);
+                List<Recipe> importedRecipes = imported.findAll();
+                Iterator i = importedRecipes.iterator();
+                while (i.hasNext()) {
+                    recipeDAO.create((Recipe) i.next());
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Import failed because:" + e.toString(), "Warning", WIDTH, null);
             }
-            //pridame recepty do databaze
-            RecipeDAOImpl imported = new RecipeDAOImpl();
-            imported.setDoc(doc);
-            List<Recipe> importedRecipes = imported.findAll();
-            Iterator i = importedRecipes.iterator();
-            while (i.hasNext()) {
-                recipeDAO.create((Recipe) i.next());
-            }
+            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
             return null;
         }        
 
         @Override
         protected void done() {
-            refreshRecipeList();
-            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+            refreshRecipeList();            
         }       
     }
     
@@ -185,43 +189,47 @@ public class RestaurantGUI extends javax.swing.JFrame {
         
         @Override
         protected Void doInBackground() throws Exception {
-            //import nacteme jako DOM tree
-            URI file = new URI(path);
-            Document doc = setDocument(file);
+            try {
+                //import nacteme jako DOM tree
+                URI file = new URI(path);
+                Document doc = setDocument(file);
 
-            //nacteme schema pro recepty
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Source schemaFile = new StreamSource(new File(getClass().getResource(INGREDIENTS_SCHEMA).toURI()));
-            Schema schema = factory.newSchema(schemaFile);
+                //nacteme schema pro recepty
+                SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                Source schemaFile = new StreamSource(new File(getClass().getResource(INGREDIENTS_SCHEMA).toURI()));
+                Schema schema = factory.newSchema(schemaFile);
 
-            //overime dokument oproti schema
-            try{
-            Validator validator = schema.newValidator();
-            validator.validate(new DOMSource(doc));
-            //pokud neni dokument validni, vznika SAXException
-            } catch (SAXException e) {
-                JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null); 
-                e.printStackTrace();
-            }
-            //pridame recepty do databaze
-            IngredientDAOImpl imported = new IngredientDAOImpl();
-            imported.setDoc(doc);
-            List<Ingredient> importedRecipes = imported.findAll();
-            for (Ingredient next : importedRecipes) {
-                if(ingredientDAO.findAll().contains(next)){
-                    next.setAmount(ingredientDAO.findIngredientsByName(next.getName()).getAmount() + next.getAmount());
-                    ingredientDAO.update(next);
-                } else {
-                    ingredientDAO.create(next);
+                //overime dokument oproti schema
+                try {
+                    Validator validator = schema.newValidator();
+                    validator.validate(new DOMSource(doc));
+                    //pokud neni dokument validni, vznika SAXException
+                } catch (SAXException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null);
+                    throw e;
                 }
+                //pridame recepty do databaze
+                IngredientDAOImpl imported = new IngredientDAOImpl();
+                imported.setDoc(doc);
+                List<Ingredient> importedRecipes = imported.findAll();
+                for (Ingredient next : importedRecipes) {
+                    if (ingredientDAO.findAll().contains(next)) {
+                        next.setAmount(ingredientDAO.findIngredientsByName(next.getName()).getAmount() + next.getAmount());
+                        ingredientDAO.update(next);
+                    } else {
+                        ingredientDAO.create(next);
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Import failed because:" + e.toString(), "Warning", WIDTH, null);
             }
+            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
             return null;
         }        
 
         @Override
         protected void done() {
-            refreshIngredientsTable();
-            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+            refreshIngredientsTable();            
         }       
     }
     /**
