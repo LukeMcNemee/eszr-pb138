@@ -247,7 +247,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         recipeList = new javax.swing.JList();
         cookingButton = new javax.swing.JButton();
         checkIngredientsButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        importReceptButton = new javax.swing.JButton();
         createEditReceipt = new javax.swing.JButton();
         cookingSpinner = new javax.swing.JSpinner();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -261,12 +261,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
         ingredienceTable = new javax.swing.JTable();
         newIngredientButton = new javax.swing.JButton();
         editIngredient = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        importIngredientButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -307,10 +305,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Import from XML");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        importReceptButton.setText("Import from XML");
+        importReceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                importReceptButtonActionPerformed(evt);
             }
         });
 
@@ -371,27 +369,24 @@ public class RestaurantGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(checkIngredientsButton)
+                                .addComponent(createEditReceipt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editRecipe)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteRecipe))
+                            .addComponent(importReceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cookingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(checkIngredientsButton))
                                 .addGap(18, 18, 18)
                                 .addComponent(maxButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(createEditReceipt)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cookingButton)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(editRecipe)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(deleteRecipe))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 94, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -410,9 +405,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cookingSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cookingButton)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                            .addComponent(cookingButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(importReceptButton)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(createEditReceipt)
                             .addComponent(editRecipe)
@@ -447,10 +443,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Import from XML");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        importIngredientButton.setText("Import from XML");
+        importIngredientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                importIngredientButtonActionPerformed(evt);
             }
         });
 
@@ -465,8 +461,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(newIngredientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(importIngredientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,27 +473,14 @@ public class RestaurantGUI extends javax.swing.JFrame {
                         .addComponent(newIngredientButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editIngredient)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(importIngredientButton)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         tabbedPane.addTab("Ingredients", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
-        );
-
-        tabbedPane.addTab("Something more..", jPanel3);
 
         jMenu1.setText("File");
 
@@ -512,9 +495,6 @@ public class RestaurantGUI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -527,7 +507,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(0, 56, Short.MAX_VALUE))
         );
 
         pack();
@@ -537,17 +517,19 @@ public class RestaurantGUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            new ImportRecipesSwingWorker(chooser.getSelectedFile().getPath()).execute(); 
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            URI ingredients = getClass().getResource(INGREDIENTS).toURI();
+            URI recipes = getClass().getResource(RECIPES).toURI();
 
-    private void createEditReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEditReceiptActionPerformed
-        new ReceiptDialog(recipeListModel, recipeDAO, ingredientDAO).setVisible(true);
-    }//GEN-LAST:event_createEditReceiptActionPerformed
+            serializetoXML(recipes, recipeDB);
+            serializetoXML(ingredients, ingredientDB);            
+
+        } catch (Exception ex) {
+            System.err.println("Cannot save application data to xml DB");
+            ex.printStackTrace();
+        }    
+    }//GEN-LAST:event_formWindowClosing
 
     private void tabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbedPaneStateChanged
         if (tabbedPane.getSelectedIndex() == 0) {
@@ -572,9 +554,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabbedPaneStateChanged
 
-    private void newIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientButtonActionPerformed
-        new IngredientDialog(ingredientsTableModel, ingredientDAO).setVisible(true);
-    }//GEN-LAST:event_newIngredientButtonActionPerformed
+    private void importIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importIngredientButtonActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            new ImportIngredientsSwingWorker(chooser.getSelectedFile().getPath()).execute();
+        }
+    }//GEN-LAST:event_importIngredientButtonActionPerformed
 
     private void editIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editIngredientActionPerformed
         if (ingredienceTable.getSelectedRowCount() == 0) {
@@ -584,51 +570,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editIngredientActionPerformed
 
-    private void cookingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cookingButtonActionPerformed
-        if (recipeList.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
-            if (ingredientsService.checkAllIngredients(recipe, (int) cookingSpinner.getValue())) {
-                ingredientsService.cook(recipe, (int) cookingSpinner.getValue());
-            } else {
-                JOptionPane.showMessageDialog(this, "Not enough ingredients to cook so many portions", "Warning", JOptionPane.WARNING_MESSAGE);
-            }
-        }
-
-    }//GEN-LAST:event_cookingButtonActionPerformed
-
-    private void recipeListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_recipeListValueChanged
-        if (recipeList.getValueIsAdjusting() == false) {
-            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
-            recipeIngredientsTableModel.setIngredients(recipe.getIngredients());
-        }
-    }//GEN-LAST:event_recipeListValueChanged
-
-    private void checkIngredientsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkIngredientsButtonActionPerformed
-        System.err.println(recipeDAO.findRecipesByName("Játrové řízečky"));
-
-        //recipeList.setBackground(Color.red);
-        recipeList.setCellRenderer(new MyCellRenderer());
-    }//GEN-LAST:event_checkIngredientsButtonActionPerformed
-
-    private void maxButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxButtonActionPerformed
-        if (recipeList.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
-            int maximum = ingredientsService.maximumPortions(recipe);
-            maxLabel.setText(String.valueOf(maximum));
-        }
-    }//GEN-LAST:event_maxButtonActionPerformed
-
-    private void editRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRecipeActionPerformed
-        if (recipeList.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            new ReceiptDialog(recipeListModel, recipeIngredientsTableModel, recipeDAO, ingredientDAO, recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()))).setVisible(true);
-        }
-    }//GEN-LAST:event_editRecipeActionPerformed
+    private void newIngredientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newIngredientButtonActionPerformed
+        new IngredientDialog(ingredientsTableModel, ingredientDAO).setVisible(true);
+    }//GEN-LAST:event_newIngredientButtonActionPerformed
 
     private void deleteRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRecipeActionPerformed
         if (recipeList.getSelectedIndex() == -1) {
@@ -641,27 +585,62 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteRecipeActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            URI ingredients = getClass().getResource(INGREDIENTS).toURI();
-            URI recipes = getClass().getResource(RECIPES).toURI();
+    private void editRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRecipeActionPerformed
+        if (recipeList.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new ReceiptDialog(recipeListModel, recipeIngredientsTableModel, recipeDAO, ingredientDAO, recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()))).setVisible(true);
+        }
+    }//GEN-LAST:event_editRecipeActionPerformed
 
-            serializetoXML(recipes, recipeDB);
-            serializetoXML(ingredients, ingredientDB);            
+    private void maxButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxButtonActionPerformed
+        if (recipeList.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            int maximum = ingredientsService.maximumPortions(recipe);
+            maxLabel.setText(String.valueOf(maximum));
+        }
+    }//GEN-LAST:event_maxButtonActionPerformed
 
-        } catch (Exception ex) {
-            System.err.println("Cannot save application data to xml DB");
-            ex.printStackTrace();
-        }    
-    }//GEN-LAST:event_formWindowClosing
+    private void createEditReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEditReceiptActionPerformed
+        new ReceiptDialog(recipeListModel, recipeDAO, ingredientDAO).setVisible(true);
+    }//GEN-LAST:event_createEditReceiptActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void importReceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importReceptButtonActionPerformed
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            new ImportIngredientsSwingWorker(chooser.getSelectedFile().getPath()).execute(); 
-        }   
-    }//GEN-LAST:event_jButton1ActionPerformed
+            new ImportRecipesSwingWorker(chooser.getSelectedFile().getPath()).execute();
+        }
+    }//GEN-LAST:event_importReceptButtonActionPerformed
+
+    private void checkIngredientsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkIngredientsButtonActionPerformed
+        System.err.println(recipeDAO.findRecipesByName("Játrové řízečky"));
+
+        //recipeList.setBackground(Color.red);
+        recipeList.setCellRenderer(new MyCellRenderer());
+    }//GEN-LAST:event_checkIngredientsButtonActionPerformed
+
+    private void cookingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cookingButtonActionPerformed
+        if (recipeList.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a recipe you wish to cook.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            if (ingredientsService.checkAllIngredients(recipe, (int) cookingSpinner.getValue())) {
+                ingredientsService.cook(recipe, (int) cookingSpinner.getValue());
+            } else {
+                JOptionPane.showMessageDialog(this, "Not enough ingredients to cook so many portions", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cookingButtonActionPerformed
+
+    private void recipeListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_recipeListValueChanged
+        if (recipeList.getValueIsAdjusting() == false) {
+            Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
+            recipeIngredientsTableModel.setIngredients(recipe.getIngredients());
+        }
+    }//GEN-LAST:event_recipeListValueChanged
 
     /**
      * @param args the command line arguments
@@ -723,16 +702,14 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JButton deleteRecipe;
     private javax.swing.JButton editIngredient;
     private javax.swing.JButton editRecipe;
+    private javax.swing.JButton importIngredientButton;
+    private javax.swing.JButton importReceptButton;
     private javax.swing.JTable ingredienceTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
