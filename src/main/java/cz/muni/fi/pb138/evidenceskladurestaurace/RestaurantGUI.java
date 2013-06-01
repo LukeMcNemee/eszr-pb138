@@ -11,18 +11,17 @@ import cz.muni.fi.pb138.evidenceskladurestaurace.persistence.Recipe;
 import cz.muni.fi.pb138.evidenceskladurestaurace.service.IngredientsService;
 import java.awt.Color;
 import java.awt.Component;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.xml.XMLConstants;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -132,6 +131,99 @@ public class RestaurantGUI extends javax.swing.JFrame {
         transformer.transform(source, result);
     }
 
+    private class ImportRecipesSwingWorker extends SwingWorker<Void, Void>{
+        
+        private String path;
+        public ImportRecipesSwingWorker(String path) {
+            this.path = path;
+        }
+        
+        @Override
+        protected Void doInBackground() throws Exception {
+            //import nacteme jako DOM tree
+            URI file = new URI(path);
+            Document doc = setDocument(file);
+
+            //nacteme schema pro recepty
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Source schemaFile = new StreamSource(new File(getClass().getResource(RECIPES_SCHEMA).toURI()));
+            Schema schema = factory.newSchema(schemaFile);
+
+            //overime dokument oproti schema
+            try{
+            Validator validator = schema.newValidator();
+            validator.validate(new DOMSource(doc));
+            //pokud neni dokument validni, vznika SAXException
+            } catch (SAXException e) {
+                JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null);
+                e.printStackTrace();
+            }
+            //pridame recepty do databaze
+            RecipeDAOImpl imported = new RecipeDAOImpl();
+            imported.setDoc(doc);
+            List<Recipe> importedRecipes = imported.findAll();
+            Iterator i = importedRecipes.iterator();
+            while (i.hasNext()) {
+                recipeDAO.create((Recipe) i.next());
+            }
+            return null;
+        }        
+
+        @Override
+        protected void done() {
+            refreshRecipeList();
+            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+        }       
+    }
+    
+    private class ImportIngredientsSwingWorker extends SwingWorker<Void, Void>{
+        
+        private String path;
+        public ImportIngredientsSwingWorker(String path) {
+            this.path = path;
+        }
+        
+        @Override
+        protected Void doInBackground() throws Exception {
+            //import nacteme jako DOM tree
+            URI file = new URI(path);
+            Document doc = setDocument(file);
+
+            //nacteme schema pro recepty
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Source schemaFile = new StreamSource(new File(getClass().getResource(INGREDIENTS_SCHEMA).toURI()));
+            Schema schema = factory.newSchema(schemaFile);
+
+            //overime dokument oproti schema
+            try{
+            Validator validator = schema.newValidator();
+            validator.validate(new DOMSource(doc));
+            //pokud neni dokument validni, vznika SAXException
+            } catch (SAXException e) {
+                JOptionPane.showMessageDialog(rootPane, "Wrong file structure in" + e.toString(), "Warning", WIDTH, null); 
+                e.printStackTrace();
+            }
+            //pridame recepty do databaze
+            IngredientDAOImpl imported = new IngredientDAOImpl();
+            imported.setDoc(doc);
+            List<Ingredient> importedRecipes = imported.findAll();
+            for (Ingredient next : importedRecipes) {
+                if(ingredientDAO.findAll().contains(next)){
+                    next.setAmount(ingredientDAO.findIngredientsByName(next.getName()).getAmount() + next.getAmount());
+                    ingredientDAO.update(next);
+                } else {
+                    ingredientDAO.create(next);
+                }
+            }
+            return null;
+        }        
+
+        @Override
+        protected void done() {
+            refreshIngredientsTable();
+            JOptionPane.showMessageDialog(rootPane, "Import finished", "Success", WIDTH, null);
+        }       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,6 +253,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         ingredienceTable = new javax.swing.JTable();
         newIngredientButton = new javax.swing.JButton();
         editIngredient = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -346,6 +439,13 @@ public class RestaurantGUI extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Import from XML");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -356,8 +456,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(newIngredientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(newIngredientButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,8 +469,10 @@ public class RestaurantGUI extends javax.swing.JFrame {
                         .addComponent(newIngredientButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editIngredient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -379,11 +482,11 @@ public class RestaurantGUI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addGap(0, 692, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Something more..", jPanel3);
@@ -416,7 +519,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         pack();
@@ -430,35 +533,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            try {
-                //vybrany soubor rozparsujeme a vytvorime DOM tree 
-                URI file = new URI(chooser.getSelectedFile().getPath());
-                Document doc = setDocument(file);
-                
-                //nacteme schema pro recepty
-                SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                Source schemaFile = new StreamSource(new File(getClass().getResource(RECIPES_SCHEMA).toURI()));
-                Schema schema = factory.newSchema(schemaFile);
-                
-                //overime dokument oproti schema
-                Validator validator = schema.newValidator();
-                validator.validate(new DOMSource(doc));
-                //pokud neni dokument validni, vznika SAXException
-                
-                //pridame recepty do databaze
-                RecipeDAOImpl imported = new RecipeDAOImpl();
-                imported.setDoc(doc);
-                List<Recipe> importedRecipes = imported.findAll();
-                Iterator i = importedRecipes.iterator();
-                while(i.hasNext()){
-                    recipeDAO.create((Recipe) i.next());
-                }
-                
-                refreshRecipeList();
-                
-            } catch (    URISyntaxException | SAXException | ParserConfigurationException | IOException ex) {
-                Logger.getLogger(RestaurantGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            new ImportRecipesSwingWorker(chooser.getSelectedFile().getPath()).execute(); 
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -572,6 +647,14 @@ public class RestaurantGUI extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            new ImportIngredientsSwingWorker(chooser.getSelectedFile().getPath()).execute(); 
+        }   
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -633,6 +716,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
     private javax.swing.JButton editIngredient;
     private javax.swing.JButton editRecipe;
     private javax.swing.JTable ingredienceTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
