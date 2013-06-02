@@ -88,15 +88,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         return ingredientDAO.findIngredientsByName(String.valueOf(ingredienceTable.getValueAt(row, 0)));
     }
 
-    private void refreshIngredientsTable() {
-        //pre kotrolny vypis
-        List<Ingredient> temp = ingredientDAO.findAll();
-        for (Ingredient i : temp) {
-            System.out.println(i.toString());
-        }
-
+    private void refreshIngredientsTable() {        
         ingredientsTableModel.setIngredients(ingredientDAO.findAll());
-
     }
 
     private void refreshRecipeList() {
@@ -633,7 +626,7 @@ public class RestaurantGUI extends javax.swing.JFrame {
             if (ingredientsService.checkAllIngredients(recipe, (int) cookingSpinner.getValue())) {
                 ingredientsService.cook(recipe, (int) cookingSpinner.getValue());
             } else {
-                JOptionPane.showMessageDialog(this, "Not enough ingredients to cook so many portions", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Not enough ingredients to cook desired amount of portions", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_cookingButtonActionPerformed
