@@ -639,6 +639,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         if (recipeList.getValueIsAdjusting() == false) {
             Recipe recipe = recipeDAO.findRecipesByName(String.valueOf(recipeList.getSelectedValue()));
             recipeIngredientsTableModel.setIngredients(recipe.getIngredients());
+            
+            maxLabel.setText("");
         }
     }//GEN-LAST:event_recipeListValueChanged
 
