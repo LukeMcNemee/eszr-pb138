@@ -142,7 +142,8 @@ public class RestaurantGUI extends javax.swing.JFrame {
         protected Void doInBackground() throws Exception {
             try {
                 //import nacteme jako DOM tree
-                URI file = new URI(path);
+                File f = new File(path);
+                URI file = f.toURI();
                 Document doc = setDocument(file);
 
                 //nacteme schema pro recepty
@@ -191,7 +192,9 @@ public class RestaurantGUI extends javax.swing.JFrame {
         protected Void doInBackground() throws Exception {
             try {
                 //import nacteme jako DOM tree
-                URI file = new URI(path);
+                File f = new File(path);
+                URI file = f.toURI();
+                
                 Document doc = setDocument(file);
 
                 //nacteme schema pro recepty
