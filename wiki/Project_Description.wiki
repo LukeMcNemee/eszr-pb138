@@ -13,8 +13,8 @@ http://img189.imageshack.us/img189/5509/diagramppaduit1.jpg
 This application allows users to view and add recipes. Also informs them about stocks in their warehouse. Everything is in intuitive and user-friendly interface.
 By clicking on desired recipe, user can validate whether the recipe can be cooked with ingredients present in the warehouse. And can also check how many portions can be cooked with ingredients in the warehouse.
 User also has the possibility to increase the amount of portions. Application can warn user if the amount of ingredients left in the warehouse is not enough for cooking the desired amount of portions.
-Adding the recipes can be done either by application or by importing a <a href="https://code.google.com/p/eszr-pb138/wiki/XMLRecipeData">XML file</a>.
-Similar way of adding ingredients is also warehouse ingredient addition.
+Adding the recipes can be done either by application or by importing a XML file.
+Similar way of adding ingredients is also warehouse ingredient addition with XML file import possibility as well.
 
 = Language used =
 
