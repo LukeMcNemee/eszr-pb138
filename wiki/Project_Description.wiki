@@ -1,10 +1,17 @@
 #summary Explanation of application.
+#sidebar TableOfContents
+  * [GUI Graphic User Interface]
+  * [UCD Use Case Diagram]
+  * [Description Description of application]
+  * [Language Used programming language]
+  * [Compatibility Operating System Compatibility]
 
 = GUI =
 
 http://img163.imageshack.us/img163/7733/20130603152359.png
 
-= Use Case Diagram =
+= UCD =
+_Use Case Diagram_
 
 http://img189.imageshack.us/img189/5509/diagramppaduit1.jpg
 
@@ -16,7 +23,8 @@ User also has the possibility to increase the amount of portions. Application ca
 Adding the recipes can be done either by application or by importing a XML file.
 Similar way of adding ingredients is also warehouse ingredient addition with XML file import possibility as well.
 
-= Language used =
+= Language =
+_Programming language used in creating this application_
 
 http://royalwise.com/rw/wp-content/uploads/2013/01/java-logo.jpg
 
