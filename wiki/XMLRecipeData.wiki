@@ -1,6 +1,7 @@
 #summary Valid recipe pattern.
 
 {{{
+<receipts>
 <receipt>
 <name>Name of the recipe.</name>
 <parts>
@@ -13,4 +14,5 @@ Every part must be in <part> tag.
 </part>
 </parts>
 </receipt>
+</receipts>
 }}}
