@@ -5,7 +5,7 @@
        * [Functions Recipe functions]
     * [Ingredient Ingredient bar]
        * [Manipulations Manipulations with ingredients]
-
+----
 = GUI =
 _How it looks like_
 
@@ -51,5 +51,5 @@ Easier way of adding ingredients and the slower one. User can only add one ingre
 Only one ingredient can be edited at a time. If more are selected, only the first one will be edited.<br><br>
 
 <li>*Import from XML*</li>
-_For advanced users_
+_For advanced users_<br>
 Imported XML must follow <a href="https://code.google.com/p/eszr-pb138/wiki/XMLWarehouseData">pattern</a>. Each ingredient that is already in the warehouse will have its amount raised by the amount in XML. Any ingredient not present in the warehouse will be added.
