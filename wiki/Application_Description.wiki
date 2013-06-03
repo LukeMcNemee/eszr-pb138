@@ -4,7 +4,7 @@
   * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#GUI">Simplified application GUI</a>
    * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#Recipes">Recipes bar</a>
     * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#Functions">Recipe functions</a>
-   * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#Ingredient">Ingredient bar</a>
+   * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#Ingredients">Ingredients bar</a>
     * <a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667#Manipulations">Manipulations with ingredients</a>
 
 ----
