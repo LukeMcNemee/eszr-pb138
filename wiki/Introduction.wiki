@@ -20,5 +20,6 @@ Adam Studenič
 _Where to go next._
 <ul>
 <li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Members?ts=1367424932" >Project Members Detailed Wiki Page</a></li>
-<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description?ts=1367425132" >Application Description Wiki Page</a></li>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description?ts=1367425132" >Project Description Wiki Page</a></li>
+<li><a href="https://code.google.com/p/eszr-pb138/wiki/Application_Description?ts=1370266667" >Application Description Wiki Page</a></li>
 </ul>
