@@ -31,7 +31,8 @@ _Programming language used in creating this application_
 http://royalwise.com/rw/wp-content/uploads/2013/01/java-logo.jpg
 
 = Compatibility =
-_This application has been tested and works on these operating system patforms_
+_This application has been tested and works on these operating system platforms_
+<br>_Java must be installed on the PC for this application to work._
 <ul>
 <li>Windows</li>
 <li>Unix</li>
