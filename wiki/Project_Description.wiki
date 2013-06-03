@@ -1,10 +1,10 @@
 #summary Explanation of application.
-#sidebar TableOfContents
-  * [GUI Graphic User Interface]
-  * [UCD Use Case Diagram]
-  * [Description Description of application]
-  * [Language Used programming language]
-  * [Compatibility Operating System Compatibility]
+*Contents*
+  * <a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description#Description">Description of application</a>
+  * <a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description#GUI">Graphic User Interface</a>
+  * <a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description#UCD">Use Case Diagram</a>
+  * <a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description#Language">Used programming language</a>
+  * <a href="https://code.google.com/p/eszr-pb138/wiki/Project_Description#Compatibility">Operating System Compatibility</a>
 ----
 
 = Description =
